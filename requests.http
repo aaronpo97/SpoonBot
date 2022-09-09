@@ -5,7 +5,7 @@ Content-Type: application/json
 
 {
 "cuisine": "Japanese",
-"keywords": ["sushi", "japanese cuisine", "gyoza", "grilled eel"]
+"keywords": ["sushi", "japanese cuisine", "gyoza", "grilled eel", "teriyaki", "karaage fried chicken", "Baltimore"]
 }
 
 ### Get restaurant names: 
@@ -14,8 +14,27 @@ POST http://localhost:3000/api/generate
 Content-Type: application/json
 
 {
-"cuisine": "Japanese",
-"keywords": ["sushi", "japanese cuisine", "gyoza", "grilled eel"]
+"cuisine": "American",
+"keywords": ["milkshakes", "fries", "burgers", "mountain"]
+}
+### Get restaurant names: 
+
+POST http://localhost:3000/api/generate
+Content-Type: application/json
+
+{
+"cuisine": "Canadian",
+"keywords": ["milkshakes", "fries", "burgers", "beer", "brewery", "bar", "pub"]
+}
+
+### Get restaurant names: 
+
+POST http://localhost:3000/api/generate
+Content-Type: application/json
+
+{
+"cuisine": "Chinese",
+"keywords": ["Mapo tofu", "Dim sum", "Chow mein"]
 }
 
 
