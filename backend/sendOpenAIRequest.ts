@@ -12,7 +12,7 @@ keywords: ${keywords.join(', ')}
 cuisine: ${cuisine}
 location: ${location}
 
-The name for the restaurant will be:`;
+This restaurant is called:`;
   return prompt;
 };
 
@@ -23,7 +23,6 @@ const sendOpenAIRequest = async ({ keywords, cuisine, location }: ResponseBody) 
       cuisine,
       location,
     });
-    console.log(prompt);
     const result = await openai.createCompletion({
       model: 'text-curie-001',
       prompt,

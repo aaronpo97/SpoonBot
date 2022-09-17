@@ -42,7 +42,7 @@ const Home: NextPage = () => {
         <title>The Restaurant Name Generator</title>
         <meta name="viewport" content="initial-scale=1.0, width=device-width" />
       </Head>
-      <div className="flex w-full flex-col lg:flex-row h-full">
+      <div className="flex w-full flex-col lg:flex-row h-[95%]">
         <div className="bg-base-300 lg:w-5/12 h-[75%] w-full lg:h-full flex flex-col items-center justify-center">
           <div className="w-10/12">
             <Form

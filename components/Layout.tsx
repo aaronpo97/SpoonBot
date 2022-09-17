@@ -7,7 +7,7 @@ const Layout: FC<{ children: ReactNode }> = ({ children }) => {
       <div className="h-[5%]">
         <Navbar />
       </div>
-      <div className="h-[95%]">{children}</div>
+      {children}
     </div>
   );
 };
