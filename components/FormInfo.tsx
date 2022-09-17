@@ -9,7 +9,7 @@ const FormInfo: FC<{
     <label htmlFor={labelFor} className="items-start text-md font-bold uppercase my-1">
       {label}
     </label>
-    <span className="items-end my-1 italic text-sm">{error}</span>
+    <span className="items-end my-1 italic lg:text-sm text-xs">{error}</span>
   </div>
 );
 

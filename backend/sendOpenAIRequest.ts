@@ -4,16 +4,15 @@ import { ResponseBody } from '../validationSchema';
 
 const generatePrompt = ({ keywords, cuisine, location }: ResponseBody) => {
   const prompt = `
-  You are a restaurant name generating AI.
-  Please follow the proceeding instructions.
-  
-  Using the information below, create a new name for a restaurant.
-  
-  keywords: ${keywords.join(', ')}
-  cuisine: ${cuisine}
-  location: ${location}
+You are a restaurant name generating AI.
 
-  The name for the restaurant will be:`;
+Using the information below, create a new name for a restaurant. The name should be as creative as possible.
+
+keywords: ${keywords.join(', ')}
+cuisine: ${cuisine}
+location: ${location}
+
+The name for the restaurant will be:`;
   return prompt;
 };
 
@@ -24,8 +23,9 @@ const sendOpenAIRequest = async ({ keywords, cuisine, location }: ResponseBody) 
       cuisine,
       location,
     });
+    console.log(prompt);
     const result = await openai.createCompletion({
-      model: 'text-davinci-002',
+      model: 'text-curie-001',
       prompt,
       max_tokens: 100,
     });
