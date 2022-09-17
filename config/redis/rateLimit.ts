@@ -1,9 +1,9 @@
 import { Ratelimit } from '@upstash/ratelimit';
 import redis from '.';
 
-const ratelimit = new Ratelimit({
+const rateLimit = new Ratelimit({
   redis,
   limiter: Ratelimit.fixedWindow(5, '1 m'),
 });
 
-export default ratelimit;
+export default rateLimit;

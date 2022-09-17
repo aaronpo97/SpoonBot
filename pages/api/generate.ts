@@ -5,9 +5,7 @@ import { SuccessResponse, ErrorResponse } from '../../util/Response';
 import sendOpenAIRequest from '../../backend/sendOpenAIRequest';
 import ServerError from '../../util/ServerError';
 import { responseBodySchema } from '../../validationSchema';
-import ratelimit from '../../config/redis/rateLimit';
-
-// Create a new ratelimiter, that allows 5 requests per 5 seconds
+import rateLimit from '../../config/redis/rateLimit';
 
 const handler = async (req: NextApiRequest, res: NextApiResponse<unknown>) => {
   try {
@@ -17,7 +15,7 @@ const handler = async (req: NextApiRequest, res: NextApiResponse<unknown>) => {
     }
 
     const identifier = requestIp.getClientIp(req)!;
-    const rateLimiter = await ratelimit.limit(identifier);
+    const rateLimiter = await rateLimit.limit(identifier);
 
     res.setHeader('X-RateLimit-Limit', rateLimiter.limit);
     res.setHeader('X-RateLimit-Remaining', rateLimiter.remaining);
@@ -36,14 +34,19 @@ const handler = async (req: NextApiRequest, res: NextApiResponse<unknown>) => {
       );
     }
 
-    const result = await sendOpenAIRequest(parseBody.data);
+    const { cuisine, keywords, location } = parseBody.data;
+    const result = await sendOpenAIRequest({
+      cuisine,
+      keywords: keywords.map((keyword) => keyword.trim()),
+      location,
+    });
     const status = 201;
     res.statusCode = status;
 
     const responseBody: SuccessResponse = {
       result,
       status,
-      message: 'Created a new restaurant name.',
+      message: 'The AI created a new restaurant name.',
       success: true,
     };
 

@@ -1,22 +1,17 @@
-import { APIErrorResponseSchema, APISuccessResponseSchema } from './Response';
+import axios from 'axios';
+import { APISuccessResponseSchema } from './Response';
 import { ResponseBody } from '../validationSchema';
 
-const sendServerRequest = async ({ cuisine, keywords }: ResponseBody) => {
-  const response = await fetch('/api/generate', {
-    method: 'POST',
-    body: JSON.stringify({ cuisine, keywords }),
-    headers: { 'Content-Type': 'application/json' },
-  });
+const sendServerRequest = async ({ cuisine, keywords, location }: ResponseBody) => {
+  const response = await axios.post('/api/generate', { cuisine, keywords, location });
 
-  const data = await response.json();
+  const { data } = response;
+  const parseAsSuccessRes = APISuccessResponseSchema.safeParse(data);
 
-  const parsedData = APISuccessResponseSchema.safeParse(data);
-
-  if (!parsedData.success) {
+  if (!parseAsSuccessRes.success) {
     throw new Error('Something went wrong.');
   }
-
-  return parsedData.data;
+  return parseAsSuccessRes.data;
 };
 
 export default sendServerRequest;
