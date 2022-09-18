@@ -3,7 +3,7 @@ import Link from 'next/link';
 const Navbar = () => {
   const pages = [{ slug: '/about', name: 'About' }];
   return (
-    <div className="navbar sticky top-0 bg-primary px-5 mb-2 h-full">
+    <nav className="navbar sticky top-0 bg-primary px-5">
       <div className="flex-1">
         <h1 className="font-bold text-xl text-primary-content">
           <Link className="btn btn-ghost normal-case text-xl" href="/">
@@ -26,7 +26,7 @@ const Navbar = () => {
           })}
         </ul>
       </div>
-    </div>
+    </nav>
   );
 };
 export default Navbar;

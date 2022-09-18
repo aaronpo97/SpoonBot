@@ -39,11 +39,12 @@ const Home: NextPage = () => {
   return (
     <>
       <Head>
-        <title>The Restaurant Name Generator</title>
+        <title>SpoonBot: The Restaurant Name Generator</title>
         <meta name="viewport" content="initial-scale=1.0, width=device-width" />
       </Head>
-      <div className="flex w-full flex-col lg:flex-row h-[95%]">
+      <div className="flex w-full flex-col lg:flex-row flex-auto h-full">
         <div className="bg-base-300 lg:w-5/12 h-[75%] w-full lg:h-full flex flex-col items-center justify-center">
+          <h1 className="mt-12 mb-6 font-bold text-2xl">Create a Name</h1>
           <div className="w-10/12">
             <Form
               setResult={setResult}
@@ -52,7 +53,7 @@ const Home: NextPage = () => {
               setError={setError}
             />
           </div>
-          <div className="mt-12 container mx-auto flex flex-col items-center justify-center text-base-content font-semibold">
+          <div className="mt-12 mb-12 container mx-auto flex flex-col items-center justify-center text-base-content font-semibold">
             <p>
               Powered by{' '}
               <Link href="https://openai.com/api/">

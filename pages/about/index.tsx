@@ -4,7 +4,7 @@ import type { NextPage } from 'next';
 const About: NextPage = () => {
   return (
     <main className="container mx-auto">
-      <section className="mt-20 mb-10 mx-4">
+      <section className="mt-10 lg:mt-20 mb-10 mx-6">
         <h1 className="font-bold text-5xl">About</h1>
         <article>
           <h2 className="font-bold text-xl mt-3">What is SpoonBot?</h2>
@@ -23,18 +23,16 @@ const About: NextPage = () => {
             machine learning.
           </p>
           <p className="mt-3">
-            GPT-3 is designed to generate text that sounds like it was written by a human.
-            To do this, the model is trained on a large corpus of text, such as books,
-            articles, and conversation transcripts. The training data is used to create a
-            statistical model of the relationships between words and phrases. The model
-            can then be used to generate new text by predicting the next word or phrase in
-            a sequence.
+            GPT-3 is trained on a large corpus of text, such as books, articles, and
+            conversation transcripts. The training data is used to create a statistical
+            model of the relationships between words and phrases. The model can then be
+            used to generate new text by predicting the next word or phrase in a sequence.
           </p>
           <h3 className="text-lg mt-3 font-semibold">Bias Disclaimer</h3>
           <p className="mt-3">
             As GPT-3 is trained on a vast amount of data, a particular response may
-            contain the biases of the data sources it was trained on. That is to say, if
-            GPT-3 is trained on a dataset that is biased against a certain group of
+            contain any bias based on the data sources it was trained on. That is to say,
+            if GPT-3 is trained on a dataset that is biased against a certain group of
             people, then it may output results that reflect that bias.
           </p>
         </article>
