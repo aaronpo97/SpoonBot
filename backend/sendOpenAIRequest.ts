@@ -18,17 +18,23 @@ This restaurant is called:`;
 
 const sendOpenAIRequest = async ({ keywords, cuisine, location }: ResponseBody) => {
   try {
-    const prompt = generatePrompt({
-      keywords,
-      cuisine,
-      location,
+    // const prompt = generatePrompt({
+    //   keywords,
+    //   cuisine,
+    //   location,
+    // });
+    // const result = await openai.createCompletion({
+    //   model: 'text-curie-001',
+    //   prompt,
+    //   max_tokens: 100,
+    // });
+    // return result.data.choices![0].text!.replace(/[\r\n]/gm, '');
+
+    await new Promise((resolve) => {
+      setTimeout(resolve, 5000);
     });
-    const result = await openai.createCompletion({
-      model: 'text-curie-001',
-      prompt,
-      max_tokens: 100,
-    });
-    return result.data.choices![0].text!.replace(/[\r\n]/gm, '');
+
+    return 'Currently testing UI only.';
   } catch {
     throw new ServerError('The server failed to send a request to OpenAI.', 500);
   }

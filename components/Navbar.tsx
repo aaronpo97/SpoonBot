@@ -1,6 +1,14 @@
 import Link from 'next/link';
+import { useRouter } from 'next/router';
+import { useEffect, useState } from 'react';
 
 const Navbar = () => {
+  const router = useRouter();
+  const [currentURL, setCurrentURL] = useState('/');
+
+  useEffect(() => {
+    setCurrentURL(router.asPath);
+  }, [router.asPath]);
   const pages = [{ slug: '/about', name: 'About' }];
   return (
     <nav className="navbar sticky top-0 bg-primary px-5">
@@ -16,8 +24,12 @@ const Navbar = () => {
           {pages.map((page) => {
             return (
               <li key={page.slug}>
-                <Link className="btn btn-ghost" tabIndex={0} href={page.slug}>
-                  <span className="text-lg font-bold uppercase text-primary-content">
+                <Link className="btn btn-secondary" tabIndex={0} href={page.slug}>
+                  <span
+                    className={`text-lg font-bold uppercase ${
+                      currentURL === page.slug ? 'bg-primary-focus' : 'bg-primary'
+                    } text-primary-content`}
+                  >
                     {page.name}
                   </span>
                 </Link>

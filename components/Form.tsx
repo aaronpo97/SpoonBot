@@ -139,7 +139,7 @@ const Form: FC<FormComponentProps> = ({
 
         <button
           type="submit"
-          className="btn btn-primary rounded-2xl mt-5 text-lg"
+          className="btn btn-primary rounded-2xl mt-5 text-xl font-bold"
           disabled={isLoading}
         >
           Generate

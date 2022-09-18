@@ -4,7 +4,9 @@ import Navbar from './Navbar';
 const Layout: FC<{ children: ReactNode }> = ({ children }) => {
   return (
     <div className="h-screen flex flex-col">
-      <Navbar />
+      <header>
+        <Navbar />
+      </header>
       <div className="flex-1 h-full">{children}</div>
     </div>
   );
