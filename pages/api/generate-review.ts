@@ -2,10 +2,11 @@ import { NextApiRequest, NextApiResponse } from 'next';
 import requestIp from 'request-ip';
 
 import { SuccessResponse, ErrorResponse } from '../../util/Response';
-import sendOpenAIRequest from '../../backend/sendOpenAIRequest';
+
 import ServerError from '../../util/ServerError';
-import { responseBodySchema } from '../../validationSchema';
+import { reviewGenResponseBodySchema } from '../../validationSchema';
 import rateLimit from '../../config/redis/rateLimit';
+import openAICreateReview from '../../backend/openAICreateReview';
 
 const handler = async (req: NextApiRequest, res: NextApiResponse<unknown>) => {
   try {
@@ -25,28 +26,24 @@ const handler = async (req: NextApiRequest, res: NextApiResponse<unknown>) => {
     }
 
     const { body } = req;
-    const parseBody = responseBodySchema.safeParse(body);
+    const parseBody = reviewGenResponseBodySchema.safeParse(body);
 
     if (!parseBody.success) {
       throw new ServerError(
-        'Your request body is invalid. Cuisine and keywords are required.',
+        'Your request body is invalid. Name and keywords are required.',
         400,
       );
     }
 
-    const { cuisine, keywords, location } = parseBody.data;
-    const result = await sendOpenAIRequest({
-      cuisine,
-      keywords: keywords.map((keyword) => keyword.trim()),
-      location,
-    });
+    const { keywords, name } = parseBody.data;
+    const result = await openAICreateReview({ keywords, name });
     const status = 201;
     res.statusCode = status;
 
     const responseBody: SuccessResponse = {
       result,
       status,
-      message: 'The AI created a new restaurant name.',
+      message: 'The AI created a new restaurant review.',
       success: true,
     };
 

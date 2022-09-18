@@ -1,9 +1,17 @@
 import axios from 'axios';
 import { APISuccessResponseSchema } from './Response';
-import { ResponseBody } from '../validationSchema';
+import { NameGenResponseBody } from '../validationSchema';
 
-const sendServerRequest = async ({ cuisine, keywords, location }: ResponseBody) => {
-  const response = await axios.post('/api/generate', { cuisine, keywords, location });
+const sendNameGenRequest = async ({
+  cuisine,
+  keywords,
+  location,
+}: NameGenResponseBody) => {
+  const response = await axios.post('/api/generate-name', {
+    cuisine,
+    keywords,
+    location,
+  });
 
   const { data } = response;
   const parseAsSuccessRes = APISuccessResponseSchema.safeParse(data);
@@ -14,4 +22,4 @@ const sendServerRequest = async ({ cuisine, keywords, location }: ResponseBody) 
   return parseAsSuccessRes.data;
 };
 
-export default sendServerRequest;
+export default sendNameGenRequest;

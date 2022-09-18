@@ -1,26 +1,25 @@
 import React, { FC, Dispatch, SetStateAction } from 'react';
 import { SubmitHandler, useForm } from 'react-hook-form';
 import { AxiosError } from 'axios';
-import sendServerRequest from '../util/sendServerRequest';
 import FormInput from './FormInput';
 import FormInfo from './FormInfo';
-import { ResultI } from '../util/ResultI';
+import { NameResult, ReviewResult } from '../util/ResultType';
 import { APIErrorResponseSchema } from '../util/Response';
+import sendReviewGenRequest from '../util/sendReviewGenRequest';
 
 interface FormComponentProps {
-  setResult: Dispatch<SetStateAction<ResultI | undefined>>;
+  setResult: Dispatch<SetStateAction<ReviewResult | undefined>>;
   setIsLoading: Dispatch<SetStateAction<boolean>>;
   isLoading: boolean;
   setError: Dispatch<SetStateAction<string>>;
 }
 
 interface FormProps {
-  cuisine: string;
+  name: string;
   keywords: string;
-  location: string;
 }
 
-const Form: FC<FormComponentProps> = ({
+const CreateReviewForm: FC<FormComponentProps> = ({
   setResult,
   isLoading,
   setIsLoading,
@@ -32,21 +31,20 @@ const Form: FC<FormComponentProps> = ({
     formState: { errors },
   } = useForm<FormProps>();
 
-  const onSubmit: SubmitHandler<FormProps> = async ({ cuisine, keywords, location }) => {
+  const onSubmit: SubmitHandler<FormProps> = async ({ name, keywords }) => {
     try {
       setError('');
       setResult(undefined);
       setIsLoading(true);
 
-      const data = await sendServerRequest({
-        cuisine,
+      const data = await sendReviewGenRequest({
+        name,
         keywords: keywords.split(','),
-        location,
       });
 
       const incomingResult = {
-        name: data.result,
-        input: { cuisine, keywords: keywords.split(',') },
+        review: data.result,
+        input: { name, keywords: keywords.split(',') },
       };
       setResult(incomingResult);
       setIsLoading(false);
@@ -73,9 +71,9 @@ const Form: FC<FormComponentProps> = ({
 
   const badWords = ['w8gh9z72f7uw'];
 
-  const cuisineInputRegister = register('cuisine', {
-    required: 'Cuisine type is required.',
-    maxLength: { message: 'Length must be less than 20 characters.', value: 20 },
+  const nameInputRegister = register('name', {
+    required: 'Name is required.',
+    maxLength: { message: 'Length must be less than 40 characters.', value: 40 },
     validate: (cuisineInput) => {
       return !badWords.includes(cuisineInput) || 'You used a banned word.';
     },
@@ -91,23 +89,16 @@ const Form: FC<FormComponentProps> = ({
     },
   });
 
-  const locationInputRegister = register('location', {
-    required: 'Location is required.',
-  });
   return (
     <form onSubmit={handleSubmit(onSubmit)}>
       <div className="flex flex-col">
         <div className="my-1">
-          <FormInfo
-            label="cuisine"
-            labelFor="cuisine-input"
-            error={errors.cuisine?.message}
-          />
+          <FormInfo label="name" labelFor="name-input" error={errors.name?.message} />
           <FormInput
-            isError={!!errors.cuisine?.message}
-            formRegister={cuisineInputRegister}
+            isError={!!errors.name?.message}
+            formRegister={nameInputRegister}
             id="cuisine-input"
-            placeholder="American"
+            placeholder="Restaurant name goes here"
           />
         </div>
         <div className="my-1">
@@ -120,20 +111,7 @@ const Form: FC<FormComponentProps> = ({
             isError={!!errors.keywords?.message}
             formRegister={keywordsInputRegister}
             id="keyword-input"
-            placeholder="Burgers, fries, milkshakes, diner"
-          />
-        </div>
-        <div className="my-1">
-          <FormInfo
-            label="location"
-            labelFor="location-input"
-            error={errors.location?.message}
-          />
-          <FormInput
-            isError={!!errors.location?.message}
-            formRegister={locationInputRegister}
-            id="location-input"
-            placeholder="Chicago"
+            placeholder="Great food, fair prices, good location, located downtown"
           />
         </div>
 
@@ -148,4 +126,4 @@ const Form: FC<FormComponentProps> = ({
     </form>
   );
 };
-export default Form;
+export default CreateReviewForm;

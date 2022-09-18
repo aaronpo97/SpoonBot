@@ -2,6 +2,10 @@ import Link from 'next/link';
 import { useRouter } from 'next/router';
 import { useEffect, useState } from 'react';
 
+interface Page {
+  slug: string;
+  name: string;
+}
 const Navbar = () => {
   const router = useRouter();
   const [currentURL, setCurrentURL] = useState('/');
@@ -9,7 +13,12 @@ const Navbar = () => {
   useEffect(() => {
     setCurrentURL(router.asPath);
   }, [router.asPath]);
-  const pages = [{ slug: '/about', name: 'About' }];
+
+  const pages: readonly Page[] = [
+    { slug: '/create-name', name: 'Name Generator' },
+    { slug: '/create-review', name: 'Review Generator' },
+    { slug: '/about', name: 'About' },
+  ];
   return (
     <nav className="navbar sticky top-0 bg-primary px-5">
       <div className="flex-1">
