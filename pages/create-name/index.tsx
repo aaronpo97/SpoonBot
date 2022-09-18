@@ -9,7 +9,7 @@ import Spinner from '../../components/Spinner';
 import ErrorInfo from '../../components/ErrorInfo';
 import NameResultInfo from '../../components/NameResultInfo';
 
-const Home: NextPage = () => {
+const CreateName: NextPage = () => {
   const [result, setResult] = useState<NameResult | undefined>();
   const [error, setError] = useState('');
   const [isLoading, setIsLoading] = useState(false);
@@ -17,7 +17,7 @@ const Home: NextPage = () => {
   return (
     <>
       <Head>
-        <title>SpoonBot: The Restaurant Name Generator</title>
+        <title>SpoonBot: Create a Name</title>
         <meta name="viewport" content="initial-scale=1.0, width=device-width" />
       </Head>
       <div className="flex w-full flex-col lg:flex-row flex-auto h-full">
@@ -61,4 +61,4 @@ const Home: NextPage = () => {
   );
 };
 
-export default Home;
+export default CreateName;

@@ -11,7 +11,7 @@ import ErrorInfo from '../../components/ErrorInfo';
 import CreateReviewForm from '../../components/CreateReviewForm';
 import ReviewResultInfo from '../../components/ReviewResultInfo';
 
-const Home: NextPage = () => {
+const CreateReview: NextPage = () => {
   const [result, setResult] = useState<ReviewResult | undefined>();
   const [error, setError] = useState('');
   const [isLoading, setIsLoading] = useState(false);
@@ -19,7 +19,7 @@ const Home: NextPage = () => {
   return (
     <>
       <Head>
-        <title>Create a Review</title>
+        <title>SpoonBot: Create a Review</title>
         <meta name="viewport" content="initial-scale=1.0, width=device-width" />
       </Head>
       <div className="flex w-full flex-col lg:flex-row flex-auto h-full">
@@ -64,4 +64,4 @@ const Home: NextPage = () => {
   );
 };
 
-export default Home;
+export default CreateReview;

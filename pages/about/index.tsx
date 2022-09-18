@@ -15,9 +15,9 @@ const About: NextPage = () => {
           <article className="mt-6">
             <h2 className="font-bold text-xl">What is SpoonBot?</h2>
             <p className="mt-3">
-              SpoonBot is a restaurant naming bot powered by GPT-3 and created by Aaron
-              Po. It uses user provided input to generate a prompt which is sent in a
-              completion request to the OpenAI GPT-3 API.
+              SpoonBot is a restaurant name and review generation bot powered by GPT-3 and
+              created by Aaron Po. It uses user provided input to generate a prompt which
+              is sent in a completion request to the OpenAI GPT-3 API.
             </p>
           </article>
           <article className="mt-3">
