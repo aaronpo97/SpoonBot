@@ -43,7 +43,7 @@ const Home: NextPage = () => {
         <meta name="viewport" content="initial-scale=1.0, width=device-width" />
       </Head>
       <div className="flex w-full flex-col lg:flex-row flex-auto h-full">
-        <div className="bg-base-300 lg:w-5/12 h-[75%] w-full lg:h-full flex flex-col items-center justify-center">
+        <div className="bg-base-300 lg:w-5/12 w-full lg:h-full flex flex-col items-center justify-center">
           <h1 className="mt-12 mb-6 font-bold text-2xl">Create a Name</h1>
           <div className="w-10/12">
             <Form
@@ -68,7 +68,7 @@ const Home: NextPage = () => {
             </p>
           </div>
         </div>
-        <div className="lg:w-7/12 bg-base-200 w-full h-[40%] lg:h-full flex flex-col items-center justify-center">
+        <div className="lg:w-7/12 bg-base-200 w-full h-96 lg:h-full flex flex-col items-center justify-center">
           {isLoading && <Spinner />}
           {result && <ResultInfo result={result} />}
           {!result && !isLoading && !error && (

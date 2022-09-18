@@ -14,7 +14,7 @@ const FormInput: FC<{
       id={id}
       type="text"
       {...formRegister}
-      className={`input rounded-none w-full ${isError ? 'input-error' : ''}`}
+      className={`input rounded-none text-[16px] w-full ${isError ? 'input-error' : ''}`}
       autoComplete="off"
       placeholder={placeholder}
     />

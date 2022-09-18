@@ -31,8 +31,8 @@ const About: NextPage = () => {
           <h3 className="text-lg mt-3 font-semibold">Bias Disclaimer</h3>
           <p className="mt-3">
             As GPT-3 is trained on a vast amount of data, a particular response may
-            contain any bias based on the data sources it was trained on. That is to say,
-            if GPT-3 is trained on a dataset that is biased against a certain group of
+            contain any bias from the data sources it was trained on. That is to say, if
+            GPT-3 is trained on a dataset that is biased against a certain group of
             people, then it may output results that reflect that bias.
           </p>
         </article>
