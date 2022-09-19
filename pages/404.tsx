@@ -14,7 +14,7 @@ const Page404: NextPage = () => {
     <div className="flex items-center justify-center h-full">
       <div>
         <h1 className="font-bold text-4xl">404 Not Found</h1>
-        <p>The requested URL {currentPath} was not found on this server.</p>
+        <p>The requested URL {currentPath} could not be found.</p>
       </div>
     </div>
   );

@@ -13,7 +13,9 @@
     "@upstash/ratelimit": "^0.1.5",
     "@upstash/redis": "^1.13.1",
     "axios": "^0.27.2",
+    "bad-words": "^3.0.4",
     "daisyui": "^2.24.0",
+    "flatted": "^3.2.7",
     "next": "12.2.5",
     "openai": "^3.0.0",
     "react": "18.2.0",
@@ -24,6 +26,7 @@
     "zod": "^3.19.0"
   },
   "devDependencies": {
+    "@types/bad-words": "^3.0.1",
     "@types/node": "^18.7.13",
     "@types/react": "18.0.17",
     "@types/react-dom": "18.0.6",

@@ -7,6 +7,7 @@ import { APIErrorResponseSchema } from '../../util/APIResponseSchema';
 import { NameResult } from '../../util/ResultType';
 import FormInfo from '../ui/FormInfo';
 import FormInput from '../ui/FormInput';
+import filter from '../../config/badwords/filter';
 
 interface FormComponentProps {
   setResult: Dispatch<SetStateAction<NameResult | undefined>>;
@@ -72,28 +73,56 @@ const CreateNameForm: FC<FormComponentProps> = ({
     }
   };
 
-  const badWords = ['w8gh9z72f7uw'];
-
   const cuisineInputRegister = register('cuisine', {
     required: 'Cuisine type is required.',
     maxLength: { message: 'Length must be less than 20 characters.', value: 20 },
     validate: (cuisineInput) => {
-      return !badWords.includes(cuisineInput) || 'You used a banned word.';
+      return (
+        !filter.isProfane(cuisineInput) ||
+        'Your response contains profanity and will not be accepted. Try something else.'
+      );
     },
   });
 
   const keywordsInputRegister = register('keywords', {
     required: 'Keywords are required.',
     validate: (keywords) => {
-      return (
-        keywords.trim().split(/\s+/).length > 1 ||
-        'You must include more than one keyword.'
-      );
+      const keywordsArray = keywords.split(',');
+      const keywordsArrayLength = keywordsArray.length;
+
+      if (keywordsArrayLength < 2) {
+        return 'You must enter at least two keywords.';
+      }
+
+      const isProfane = keywordsArray.some((keyword) => filter.isProfane(keyword));
+
+      if (isProfane) {
+        return 'Your response contains profanity and will not be accepted. Try something else.';
+      }
+
+      // check if any of the keywords are longer than 15 characters
+      const isTooLong = keywordsArray.some((keyword) => keyword.length > 15);
+
+      if (isTooLong) {
+        return 'Keywords must be less than 15 characters.';
+      }
+
+      if (keywordsArrayLength > 5) {
+        return 'You can only enter up to 5 keywords.';
+      }
+      return true;
     },
   });
 
   const locationInputRegister = register('location', {
     required: 'Location is required.',
+    maxLength: { message: 'Length must be less than 20 characters.', value: 20 },
+    validate: (locationInput) => {
+      return (
+        !filter.isProfane(locationInput) ||
+        'Your response contains profanity and will not be accepted. Try something else.'
+      );
+    },
   });
   return (
     <form onSubmit={handleSubmit(onSubmit)}>

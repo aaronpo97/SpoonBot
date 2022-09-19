@@ -1,3 +1,5 @@
+import fs from 'fs/promises';
+import { stringify } from 'flatted';
 import openai from '../config/openai';
 import ServerError from '../util/error/ServerError';
 import { ReviewGenRequestBody } from '../util/RequestSchemas';
@@ -22,6 +24,7 @@ const openAICreateReview = async ({ keywords, name }: ReviewGenRequestBody) => {
       prompt,
       max_tokens: 200,
     });
+
     return result.data.choices![0].text!.replace(/[\r\n]/gm, '');
   } catch (error) {
     throw new ServerError('The server failed to send a request to OpenAI.', 500);

@@ -1,6 +1,7 @@
 import openai from '../config/openai';
 import ServerError from '../util/error/ServerError';
 import { NameGenRequestBody } from '../util/RequestSchemas';
+import openAICreateModeration, { ModerationError } from './openAICreateModeration';
 
 const generatePrompt = ({ keywords, cuisine, location }: NameGenRequestBody) => {
   const prompt = `
@@ -23,13 +24,25 @@ const openAICreateName = async ({ keywords, cuisine, location }: NameGenRequestB
       cuisine,
       location,
     });
+
     const result = await openai.createCompletion({
       model: 'text-curie-001',
       prompt,
       max_tokens: 100,
     });
-    return result.data.choices![0].text!.replace(/[\r\n]/gm, '');
+    const data = result.data.choices![0].text!.replace(/[\r\n]/gm, '');
+    const moderation = await openAICreateModeration(data);
+
+    console.log(moderation);
+    if (moderation.results[0].flagged) {
+      throw new ModerationError('Spoon');
+    }
+
+    return data;
   } catch (error) {
+    if (error instanceof ModerationError) {
+      throw new ServerError(error.message, 400);
+    }
     throw new ServerError('The server failed to send a request to OpenAI.', 500);
   }
 };
