@@ -5,8 +5,9 @@ import { SuccessResponse, ErrorResponse } from '../../util/APIResponseSchema';
 
 import ServerError from '../../util/error/ServerError';
 import { NameGenRequestBodySchema } from '../../util/RequestSchemas';
-import rateLimit from '../../config/redis/rateLimit';
+
 import openAICreateName from '../../openAIRequests/openAICreateName';
+import { nameGenRateLimit } from '../../config/redis/rateLimit';
 
 const handler = async (req: NextApiRequest, res: NextApiResponse<unknown>) => {
   try {
@@ -16,7 +17,7 @@ const handler = async (req: NextApiRequest, res: NextApiResponse<unknown>) => {
     }
 
     const identifier = requestIp.getClientIp(req)!;
-    const rateLimiter = await rateLimit.limit(identifier);
+    const rateLimiter = await nameGenRateLimit.limit(identifier);
 
     res.setHeader('X-RateLimit-Limit', rateLimiter.limit);
     res.setHeader('X-RateLimit-Remaining', rateLimiter.remaining);
