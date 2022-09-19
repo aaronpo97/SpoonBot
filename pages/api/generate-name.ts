@@ -1,11 +1,12 @@
 import { NextApiRequest, NextApiResponse } from 'next';
 import requestIp from 'request-ip';
 
-import { SuccessResponse, ErrorResponse } from '../../util/Response';
-import openAICreateName from '../../backend/openAICreateName';
-import ServerError from '../../util/ServerError';
-import { nameGenResponseBodySchema } from '../../validationSchema';
+import { SuccessResponse, ErrorResponse } from '../../util/APIResponseSchema';
+
+import ServerError from '../../util/error/ServerError';
+import { NameGenRequestBodySchema } from '../../util/RequestSchemas';
 import rateLimit from '../../config/redis/rateLimit';
+import openAICreateName from '../../openAIRequests/openAICreateName';
 
 const handler = async (req: NextApiRequest, res: NextApiResponse<unknown>) => {
   try {
@@ -25,7 +26,7 @@ const handler = async (req: NextApiRequest, res: NextApiResponse<unknown>) => {
     }
 
     const { body } = req;
-    const parseBody = nameGenResponseBodySchema.safeParse(body);
+    const parseBody = NameGenRequestBodySchema.safeParse(body);
 
     if (!parseBody.success) {
       throw new ServerError(

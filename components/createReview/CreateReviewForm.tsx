@@ -1,11 +1,13 @@
 import React, { FC, Dispatch, SetStateAction } from 'react';
 import { SubmitHandler, useForm } from 'react-hook-form';
 import { AxiosError } from 'axios';
-import FormInput from './FormInput';
-import FormInfo from './FormInfo';
-import { NameResult, ReviewResult } from '../util/ResultType';
-import { APIErrorResponseSchema } from '../util/Response';
-import sendReviewGenRequest from '../util/sendReviewGenRequest';
+
+import { ReviewResult } from '../../util/ResultType';
+import { APIErrorResponseSchema } from '../../util/APIResponseSchema';
+
+import FormInfo from '../ui/FormInfo';
+import FormInput from '../ui/FormInput';
+import sendReviewGenRequest from '../../util/client-api-requests/sendReviewGenRequest';
 
 interface FormComponentProps {
   setResult: Dispatch<SetStateAction<ReviewResult | undefined>>;

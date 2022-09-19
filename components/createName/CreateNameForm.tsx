@@ -1,12 +1,12 @@
 import React, { FC, Dispatch, SetStateAction } from 'react';
 import { SubmitHandler, useForm } from 'react-hook-form';
 import { AxiosError } from 'axios';
-import sendNameGenRequest from '../util/sendNameGenRequest';
-import FormInput from './FormInput';
-import FormInfo from './FormInfo';
+import sendNameGenRequest from '../../util/client-api-requests/sendNameGenRequest';
 
-import { APIErrorResponseSchema } from '../util/Response';
-import { NameResult } from '../util/ResultType';
+import { APIErrorResponseSchema } from '../../util/APIResponseSchema';
+import { NameResult } from '../../util/ResultType';
+import FormInfo from '../ui/FormInfo';
+import FormInput from '../ui/FormInput';
 
 interface FormComponentProps {
   setResult: Dispatch<SetStateAction<NameResult | undefined>>;

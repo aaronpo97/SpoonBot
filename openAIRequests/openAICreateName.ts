@@ -1,8 +1,8 @@
 import openai from '../config/openai';
-import ServerError from '../util/ServerError';
-import { NameGenResponseBody } from '../validationSchema';
+import ServerError from '../util/error/ServerError';
+import { NameGenRequestBody } from '../util/RequestSchemas';
 
-const generatePrompt = ({ keywords, cuisine, location }: NameGenResponseBody) => {
+const generatePrompt = ({ keywords, cuisine, location }: NameGenRequestBody) => {
   const prompt = `
 You are a restaurant name generating AI.
 
@@ -16,7 +16,7 @@ This restaurant is called:`;
   return prompt;
 };
 
-const openAICreateName = async ({ keywords, cuisine, location }: NameGenResponseBody) => {
+const openAICreateName = async ({ keywords, cuisine, location }: NameGenRequestBody) => {
   try {
     const prompt = generatePrompt({
       keywords,

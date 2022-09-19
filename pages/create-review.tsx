@@ -1,15 +1,16 @@
-import React, { FC, useState } from 'react';
+import React, { useState } from 'react';
 import type { NextPage } from 'next';
 import Head from 'next/head';
 
 import Link from 'next/link';
 
-import { ReviewResult } from '../../util/ResultType';
-import Spinner from '../../components/Spinner';
-import ErrorInfo from '../../components/ErrorInfo';
+import { ReviewResult } from '../util/ResultType';
 
-import CreateReviewForm from '../../components/CreateReviewForm';
-import ReviewResultInfo from '../../components/ReviewResultInfo';
+import ErrorInfo from '../components/ui/ErrorInfo';
+
+import CreateReviewForm from '../components/createReview/CreateReviewForm';
+import ReviewResultInfo from '../components/createReview/ReviewResultInfo';
+import Spinner from '../components/ui/Spinner';
 
 const CreateReview: NextPage = () => {
   const [result, setResult] = useState<ReviewResult | undefined>();

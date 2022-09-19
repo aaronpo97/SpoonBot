@@ -1,12 +1,12 @@
 import { NextApiRequest, NextApiResponse } from 'next';
 import requestIp from 'request-ip';
 
-import { SuccessResponse, ErrorResponse } from '../../util/Response';
+import { SuccessResponse, ErrorResponse } from '../../util/APIResponseSchema';
 
-import ServerError from '../../util/ServerError';
-import { reviewGenResponseBodySchema } from '../../validationSchema';
+import ServerError from '../../util/error/ServerError';
+import { ReviewGenRequestBodySchema } from '../../util/RequestSchemas';
 import rateLimit from '../../config/redis/rateLimit';
-import openAICreateReview from '../../backend/openAICreateReview';
+import openAICreateReview from '../../openAIRequests/openAICreateReview';
 
 const handler = async (req: NextApiRequest, res: NextApiResponse<unknown>) => {
   try {
@@ -26,7 +26,7 @@ const handler = async (req: NextApiRequest, res: NextApiResponse<unknown>) => {
     }
 
     const { body } = req;
-    const parseBody = reviewGenResponseBodySchema.safeParse(body);
+    const parseBody = ReviewGenRequestBodySchema.safeParse(body);
 
     if (!parseBody.success) {
       throw new ServerError(

@@ -1,12 +1,12 @@
 import axios from 'axios';
-import { APISuccessResponseSchema } from './Response';
-import { NameGenResponseBody } from '../validationSchema';
+import { APISuccessResponseSchema } from '../APIResponseSchema';
+import { NameGenRequestBody } from '../RequestSchemas';
 
 const sendNameGenRequest = async ({
   cuisine,
   keywords,
   location,
-}: NameGenResponseBody) => {
+}: NameGenRequestBody) => {
   const response = await axios.post('/api/generate-name', {
     cuisine,
     keywords,

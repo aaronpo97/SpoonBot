@@ -1,13 +1,14 @@
-import React, { FC, useState } from 'react';
+import React, { useState } from 'react';
 import type { NextPage } from 'next';
 import Head from 'next/head';
 
 import Link from 'next/link';
-import CreateNameForm from '../../components/CreateNameForm';
-import { NameResult } from '../../util/ResultType';
-import Spinner from '../../components/Spinner';
-import ErrorInfo from '../../components/ErrorInfo';
-import NameResultInfo from '../../components/NameResultInfo';
+import CreateNameForm from '../components/createName/CreateNameForm';
+import ErrorInfo from '../components/ui/ErrorInfo';
+
+import { NameResult } from '../util/ResultType';
+import NameResultInfo from '../components/createName/NameResultInfo';
+import Spinner from '../components/ui/Spinner';
 
 const CreateName: NextPage = () => {
   const [result, setResult] = useState<NameResult | undefined>();

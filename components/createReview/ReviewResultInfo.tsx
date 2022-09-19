@@ -1,5 +1,5 @@
 import { FC } from 'react';
-import { NameResult, ReviewResult } from '../util/ResultType';
+import { ReviewResult } from '../../util/ResultType';
 
 const ReviewResultInfo: FC<{ result: ReviewResult }> = ({ result }) => {
   return (

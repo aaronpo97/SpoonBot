@@ -1,8 +1,8 @@
 import openai from '../config/openai';
-import ServerError from '../util/ServerError';
-import { ReviewGenResponseBody } from '../validationSchema/index';
+import ServerError from '../util/error/ServerError';
+import { ReviewGenRequestBody } from '../util/RequestSchemas';
 
-const generatePrompt = ({ keywords, name }: ReviewGenResponseBody) => {
+const generatePrompt = ({ keywords, name }: ReviewGenRequestBody) => {
   const prompt = `You are a restaurant review bot. Please write a long restaurant review based on this information.
   
   name: ${name}
@@ -11,7 +11,7 @@ const generatePrompt = ({ keywords, name }: ReviewGenResponseBody) => {
   return prompt;
 };
 
-const openAICreateReview = async ({ keywords, name }: ReviewGenResponseBody) => {
+const openAICreateReview = async ({ keywords, name }: ReviewGenRequestBody) => {
   try {
     const prompt = generatePrompt({
       name,
