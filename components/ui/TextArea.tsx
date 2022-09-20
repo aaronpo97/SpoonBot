@@ -1,24 +1,34 @@
+// create a text area component using daisyui
+
 import React, { FC } from 'react';
 import { UseFormRegisterReturn } from 'react-hook-form';
 
-const FormInput: FC<{
+interface TextAreaProps {
   formRegister: UseFormRegisterReturn<string>;
   id: string;
   // eslint-disable-next-line react/require-default-props
   isError?: boolean;
   // eslint-disable-next-line react/require-default-props
   placeholder?: string;
-}> = ({ formRegister, id, placeholder, isError = false }) => {
+}
+
+const TextArea: FC<TextAreaProps> = ({
+  formRegister,
+  id,
+  placeholder,
+  isError = false,
+}) => {
   return (
-    <input
+    <textarea
       id={id}
-      type="text"
       {...formRegister}
-      className={`input rounded-xl  text-[16px] w-full ${isError ? 'input-error' : ''}`}
-      autoComplete="off"
       placeholder={placeholder}
+      rows={6}
+      className={`w-full textarea rounded-xl  text-[16px] resize-none ${
+        isError ? 'input-error' : ''
+      }`}
     />
   );
 };
 
-export default FormInput;
+export default TextArea;

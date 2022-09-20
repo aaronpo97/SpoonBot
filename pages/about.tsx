@@ -1,6 +1,7 @@
 import React from 'react';
 import type { NextPage } from 'next';
 import Head from 'next/head';
+import Link from 'next/link';
 
 const About: NextPage = () => {
   return (
@@ -9,7 +10,7 @@ const About: NextPage = () => {
         <title>SpoonBot: About</title>
         <meta name="viewport" content="initial-scale=1.0, width=device-width" />
       </Head>
-      <main className="flex flex-col bg-base-300 items-center lg:h-full">
+      <main className="flex flex-col bg-base-300 items-center lg:h-full pb-12">
         <section className="w-9/12 lg:mt-32 mt-10 text-base-content">
           <h1 className="font-bold text-5xl">About</h1>
           <article className="mt-6">
@@ -18,7 +19,11 @@ const About: NextPage = () => {
               SpoonBot is a web application that uses OpenAI&apos;s GPT-3 API to generate
               restaurant names and reviews. It was created by Aaron William Po. If you
               would like to learn more about the project, you can visit the GitHub
-              repository <a href="https://github.com/aaronpo97/SpoonBot">here</a>.
+              repository{' '}
+              <Link href="https://github.com/aaronpo97/SpoonBot">
+                <span className="hover:underline cursor-pointer">here</span>
+              </Link>
+              .
             </p>
           </article>
           <article className="mt-3">

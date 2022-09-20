@@ -20,13 +20,14 @@ const Navbar = () => {
   const pages: readonly Page[] = [
     { slug: '/create-name', name: 'Name Generator' },
     { slug: '/create-review', name: 'Review Generator' },
+    { slug: '/contact', name: 'Contact' },
     { slug: '/about', name: 'About' },
   ];
   return (
     <div className="navbar bg-primary">
       <div className="flex-1">
         <Link className="btn btn-ghost normal-case text-3xl" href="/">
-          <span className="text-xl font-bold">SpoonBot</span>
+          <span className="text-xl font-bold cursor-pointer">SpoonBot</span>
         </Link>
       </div>
       <div className="flex-none lg:block hidden">

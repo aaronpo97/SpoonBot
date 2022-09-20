@@ -24,7 +24,7 @@ const CreateReview: NextPage = () => {
         <meta name="viewport" content="initial-scale=1.0, width=device-width" />
       </Head>
       <div className="flex w-full flex-col lg:flex-row flex-auto h-full">
-        <div className="bg-base-300 lg:w-6/12 w-full lg:h-full flex flex-col items-center justify-center">
+        <div className="bg-base-300 lg:w-6/12 w-full lg:h-full h-screen flex flex-col items-center justify-center">
           <h1 className="mt-12 mb-6 font-bold text-4xl">Create a Review</h1>
 
           <div className="w-10/12">
@@ -50,7 +50,7 @@ const CreateReview: NextPage = () => {
             </p>
           </div>
         </div>
-        <div className="lg:w-6/12 bg-base-200 w-full h-96 lg:h-full flex flex-col items-center justify-center">
+        <div className="lg:w-6/12 bg-base-200 w-full py-10 h-full flex flex-col items-center justify-center">
           {isLoading && <Spinner />}
           {result && <ReviewResultInfo result={result} />}
           {!result && !isLoading && !error && (
