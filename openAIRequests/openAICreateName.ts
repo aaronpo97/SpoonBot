@@ -33,7 +33,6 @@ const openAICreateName = async ({ keywords, cuisine, location }: NameGenRequestB
     const data = result.data.choices![0].text!.replace(/[\r\n]/gm, '');
     const moderation = await openAICreateModeration(data);
 
-    console.log(moderation);
     if (moderation.results[0].flagged) {
       throw new ModerationError('Spoon');
     }

@@ -1,6 +1,7 @@
 /* eslint-disable jsx-a11y/no-noninteractive-tabindex */
 /* eslint-disable jsx-a11y/label-has-associated-control */
 /* eslint-disable jsx-a11y/label-has-for */
+import { useUser } from '@auth0/nextjs-auth0';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
 import { useEffect, useState } from 'react';
@@ -13,18 +14,32 @@ const Navbar = () => {
   const router = useRouter();
   const [currentURL, setCurrentURL] = useState('/');
 
+  const { user, error, isLoading } = useUser();
+
   useEffect(() => {
     setCurrentURL(router.asPath);
   }, [router.asPath]);
 
-  const pages: readonly Page[] = [
-    { slug: '/create-name', name: 'Name Generator' },
-    { slug: '/create-review', name: 'Review Generator' },
-    { slug: '/contact', name: 'Contact' },
-    { slug: '/about', name: 'About' },
+  const authenticatedPages: readonly Page[] = [
+    { slug: '/create-name', name: 'Create Name' },
+    { slug: '/create-review', name: 'Create Review' },
+    { slug: '/api/auth/logout', name: 'Logout' },
   ];
+
+  const unauthenticatedPages: readonly Page[] = [
+    { slug: '/api/auth/login', name: 'Login' },
+  ];
+
+  const nonAuthenticatedPages: readonly Page[] = [{ slug: '/about', name: 'About' }];
+
+  // pages should combine authenticated pages and non authenticated pages if user is authenticated
+  const pages =
+    !isLoading && user && !error
+      ? [...nonAuthenticatedPages, ...authenticatedPages]
+      : [...nonAuthenticatedPages, ...unauthenticatedPages];
+
   return (
-    <div className="navbar bg-primary">
+    <nav className="navbar bg-primary">
       <div className="flex-1">
         <Link className="btn btn-ghost normal-case text-3xl" href="/">
           <span className="text-xl font-bold cursor-pointer">SpoonBot</span>
@@ -35,9 +50,9 @@ const Navbar = () => {
           {pages.map((page) => {
             return (
               <li key={page.slug}>
-                <Link className="btn btn-secondary" tabIndex={0} href={page.slug}>
+                <Link tabIndex={0} href={page.slug}>
                   <span
-                    className={`text-lg font-bold uppercase ${
+                    className={`text-lg font-bold hover:bg-primary-focus uppercase ${
                       currentURL === page.slug ? 'bg-primary-focus' : 'bg-primary'
                     } text-primary-content`}
                   >
@@ -80,7 +95,7 @@ const Navbar = () => {
           </ul>
         </div>
       </div>
-    </div>
+    </nav>
   );
 };
 export default Navbar;

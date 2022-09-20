@@ -4,6 +4,7 @@ import Head from 'next/head';
 
 import Link from 'next/link';
 
+import { withPageAuthRequired } from '@auth0/nextjs-auth0';
 import { ReviewResult } from '../util/ResultType';
 
 import ErrorInfo from '../components/ui/ErrorInfo';
@@ -66,3 +67,4 @@ const CreateReview: NextPage = () => {
 };
 
 export default CreateReview;
+export const getServerSideProps = withPageAuthRequired();
