@@ -16,7 +16,7 @@ const handler = withApiAuthRequired(
 
       const session = getSession(req, res);
       const { user } = session!;
-      const identifier = user.sid;
+      const identifier = user.sub;
 
       const rateLimiter = await reviewGenRateLimit.limit(identifier);
 
@@ -38,7 +38,7 @@ const handler = withApiAuthRequired(
       }
 
       const { keywords, name } = parseBody.data;
-      const result = await openAICreateReview({ keywords, name });
+      const result = await openAICreateReview({ keywords, name }, identifier);
       const status = 201;
       const message = 'The AI created a new restaurant review.';
       const success = true;

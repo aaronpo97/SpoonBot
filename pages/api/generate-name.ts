@@ -1,12 +1,10 @@
 import { NextApiRequest, NextApiResponse } from 'next';
 import { getSession, withApiAuthRequired } from '@auth0/nextjs-auth0';
-
-import { nameGenRateLimit } from '../../config/redis/rateLimit';
-import { NameGenRequestBodySchema } from '../../util/RequestSchemas';
 import { SuccessResponse, ErrorResponse } from '../../util/APIResponseSchema';
-
-import openAICreateName from '../../openAIRequests/openAICreateName';
 import ServerError from '../../util/error/ServerError';
+import { NameGenRequestBodySchema } from '../../util/RequestSchemas';
+import openAICreateName from '../../openAIRequests/openAICreateName';
+import { nameGenRateLimit } from '../../config/redis/rateLimit';
 
 const handler = withApiAuthRequired(
   async (req: NextApiRequest, res: NextApiResponse<unknown>) => {
@@ -40,11 +38,14 @@ const handler = withApiAuthRequired(
 
       const { cuisine, keywords, location } = parseBody.data;
 
-      const result = await openAICreateName({
-        cuisine,
-        keywords: keywords.map((keyword) => keyword.trim()),
-        location,
-      });
+      const result = await openAICreateName(
+        {
+          cuisine,
+          keywords: keywords.map((keyword) => keyword.trim()),
+          location,
+        },
+        identifier,
+      );
 
       const status = 201;
       const message = 'The AI created a new restaurant name.';

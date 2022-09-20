@@ -7,6 +7,7 @@ interface Props {}
 
 const Home: NextPage<Props> = () => {
   const { user } = useUser();
+  console.log(user?.sub);
   return (
     <>
       <Head>
@@ -18,17 +19,18 @@ const Home: NextPage<Props> = () => {
         <h2 className="sm:text-3xl text-xl mt-3 font-semibold">
           The Restaurant Name and Review Bot
         </h2>
-        <div className="mt-10">
+        <div className="mt-10 flex flex-col items-center justify-center">
           {user ? (
-            <h3 className="text-xl font-semibold">
-              Welcome, {user.name}! You are logged in.
-            </h3>
+            <>
+              <h3 className="text-4xl font-semibold">Welcome!</h3>
+              <h4 className="text-xl font-semibold mt-1">You are now logged in.</h4>
+            </>
           ) : (
             <h3 className="text-xl font-semibold">
               Welcome! Please{' '}
-              <Link href="/api/auth/login">
+              <a href="/api/auth/login" className="cursor-pointer">
                 <span className="hover:underline">login or create an account</span>
-              </Link>{' '}
+              </a>{' '}
               to get started.
             </h3>
           )}

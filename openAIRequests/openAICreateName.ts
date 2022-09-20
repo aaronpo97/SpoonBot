@@ -17,8 +17,9 @@ This restaurant is called:`;
   return prompt;
 };
 
-const openAICreateName = async ({ keywords, cuisine, location }: NameGenRequestBody) => {
+const openAICreateName = async (info: NameGenRequestBody, id: string) => {
   try {
+    const { cuisine, keywords, location } = info;
     const prompt = generatePrompt({
       keywords,
       cuisine,
@@ -29,6 +30,7 @@ const openAICreateName = async ({ keywords, cuisine, location }: NameGenRequestB
       model: 'text-curie-001',
       prompt,
       max_tokens: 100,
+      user: id,
     });
     const data = result.data.choices![0].text!.replace(/[\r\n]/gm, '');
     const moderation = await openAICreateModeration(data);

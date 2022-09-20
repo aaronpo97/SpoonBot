@@ -1,5 +1,4 @@
 import fs from 'fs/promises';
-import { stringify } from 'flatted';
 import openai from '../config/openai';
 import ServerError from '../util/error/ServerError';
 import { ReviewGenRequestBody } from '../util/RequestSchemas';
@@ -13,8 +12,10 @@ const generatePrompt = ({ keywords, name }: ReviewGenRequestBody) => {
   return prompt;
 };
 
-const openAICreateReview = async ({ keywords, name }: ReviewGenRequestBody) => {
+const openAICreateReview = async (info: ReviewGenRequestBody, id: string) => {
   try {
+    const { name, keywords } = info;
+
     const prompt = generatePrompt({
       name,
       keywords,
@@ -23,6 +24,7 @@ const openAICreateReview = async ({ keywords, name }: ReviewGenRequestBody) => {
       model: 'text-curie-001',
       prompt,
       max_tokens: 200,
+      user: id,
     });
 
     return result.data.choices![0].text!.replace(/[\r\n]/gm, '');
