@@ -28,9 +28,9 @@ const Home: NextPage<Props> = () => {
           ) : (
             <h3 className="text-xl font-semibold">
               Welcome! Please{' '}
-              <a href="/api/auth/login" className="cursor-pointer">
+              <Link href="/api/auth/login" className="cursor-pointer">
                 <span className="hover:underline">login or create an account</span>
-              </a>{' '}
+              </Link>{' '}
               to get started.
             </h3>
           )}
