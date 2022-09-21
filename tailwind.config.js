@@ -3,7 +3,8 @@
 module.exports = {
   content: ['./pages/**/*.{js,ts,jsx,tsx}', './components/**/*.{js,ts,jsx,tsx}'],
 
-  plugins: [require('daisyui')],
+  // eslint-disable-next-line import/no-extraneous-dependencies
+  plugins: [require('daisyui'), require('@tailwindcss/typography')],
   daisyui: {
     themes: ['cupcake', 'business'],
   },
