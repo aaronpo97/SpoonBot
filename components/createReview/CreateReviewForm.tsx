@@ -8,7 +8,8 @@ import { APIErrorResponseSchema } from '../../util/APIResponseSchema';
 import FormInfo from '../ui/FormInfo';
 import FormInput from '../ui/FormInput';
 import sendReviewGenRequest from '../../util/client-api-requests/sendReviewGenRequest';
-import filter from '../../config/badwords/filter';
+import profanity from '../../config/badwords/profanity';
+import generateReviewKeywords from '../../util/examples/generateReviewKeywords';
 
 interface FormComponentProps {
   setResult: Dispatch<SetStateAction<ReviewResult | undefined>>;
@@ -32,6 +33,8 @@ const CreateReviewForm: FC<FormComponentProps> = ({
     register,
     handleSubmit,
     formState: { errors },
+    reset,
+    setValue,
   } = useForm<FormProps>();
 
   const onSubmit: SubmitHandler<FormProps> = async ({ name, keywords }) => {
@@ -56,13 +59,11 @@ const CreateReviewForm: FC<FormComponentProps> = ({
         const validateResponseData = APIErrorResponseSchema.safeParse(
           error.response?.data,
         );
-
         if (!validateResponseData.success) {
           return;
         }
 
         setError(validateResponseData.data.message);
-
         setIsLoading(false);
         setResult(undefined);
         return;
@@ -76,10 +77,10 @@ const CreateReviewForm: FC<FormComponentProps> = ({
     required: 'Name is required.',
     maxLength: { message: 'Length must be less than 40 characters.', value: 40 },
     validate: (cuisineInput) => {
-      if (filter.isProfane(cuisineInput)) {
+      const isProfane = profanity.exists(cuisineInput);
+      if (isProfane) {
         return 'Your response contains profanity and will not be accepted. Try something else.';
       }
-
       return true;
     },
   });
@@ -88,31 +89,32 @@ const CreateReviewForm: FC<FormComponentProps> = ({
     required: 'Keywords are required.',
     validate: (keywords) => {
       const keywordsArray = keywords.split(',');
-      const keywordsArrayLength = keywordsArray.length;
 
-      if (keywordsArrayLength < 2) {
-        return 'You must enter at least two keywords.';
+      const isProfane = keywordsArray.some((keyword) => profanity.exists(keyword));
+      const isTooLong = keywordsArray.some((keyword) => keyword.length > 25);
+      const isUpTo10Keywords = keywordsArray.length > 10;
+      const hasMoreThanTwoKeyWords = keywordsArray.length < 2;
+
+      if (hasMoreThanTwoKeyWords) {
+        return 'You must have at least two keywords.';
       }
-
-      const isProfane = keywordsArray.some((keyword) => filter.isProfane(keyword));
-
       if (isProfane) {
         return 'Your response contains profanity and will not be accepted. Try something else.';
       }
-
-      const isTooLong = keywordsArray.some((keyword) => keyword.length > 25);
-
       if (isTooLong) {
         return 'Keywords must be less than 25 characters.';
       }
-
-      if (keywordsArrayLength > 10) {
+      if (isUpTo10Keywords) {
         return 'You can only enter up to 10 keywords.';
       }
       return true;
     },
   });
 
+  const useExample = () => {
+    setValue('name', `Aaron's Bar and Grill`);
+    setValue('keywords', generateReviewKeywords());
+  };
   return (
     <form onSubmit={handleSubmit(onSubmit)}>
       <div className="flex flex-col">
@@ -135,10 +137,33 @@ const CreateReviewForm: FC<FormComponentProps> = ({
             isError={!!errors.keywords?.message}
             formRegister={keywordsInputRegister}
             id="keyword-input"
-            placeholder="Great food, fair prices, good location, located downtown"
+            placeholder="Describe the restaurant in a few words"
           />
         </div>
-
+        <div className="flex flex-row justify-between">
+          <div className="w-1/2 pr-1">
+            <button
+              type="button"
+              className="btn btn-primary rounded-2xl mt-5 text-xl font-bold w-full"
+              disabled={isLoading}
+              onClick={useExample}
+            >
+              Use Example
+            </button>
+          </div>
+          <div className="w-1/2  pl-1">
+            <button
+              type="button"
+              className="btn btn-primary rounded-2xl mt-5 text-xl font-bold w-full"
+              disabled={isLoading}
+              onClick={() => {
+                reset();
+              }}
+            >
+              Clear
+            </button>
+          </div>
+        </div>
         <button
           type="submit"
           className="btn btn-primary rounded-2xl mt-5 text-xl font-bold"

@@ -7,7 +7,8 @@ import { APIErrorResponseSchema } from '../../util/APIResponseSchema';
 import { NameResult } from '../../util/ResultType';
 import FormInfo from '../ui/FormInfo';
 import FormInput from '../ui/FormInput';
-import filter from '../../config/badwords/filter';
+import profanity from '../../config/badwords/profanity';
+import generateNamePrompt from '../../util/examples/generateNamePrompt';
 
 interface FormComponentProps {
   setResult: Dispatch<SetStateAction<NameResult | undefined>>;
@@ -32,6 +33,8 @@ const CreateNameForm: FC<FormComponentProps> = ({
     register,
     handleSubmit,
     formState: { errors },
+    setValue,
+    reset,
   } = useForm<FormProps>();
 
   const onSubmit: SubmitHandler<FormProps> = async ({ cuisine, keywords, location }) => {
@@ -39,13 +42,11 @@ const CreateNameForm: FC<FormComponentProps> = ({
       setError('');
       setResult(undefined);
       setIsLoading(true);
-
       const data = await sendNameGenRequest({
         cuisine,
         keywords: keywords.split(','),
         location,
       });
-
       const incomingResult = {
         name: data.result,
         input: { cuisine, keywords: keywords.split(',') },
@@ -57,18 +58,14 @@ const CreateNameForm: FC<FormComponentProps> = ({
         const validateResponseData = APIErrorResponseSchema.safeParse(
           error.response?.data,
         );
-
         if (!validateResponseData.success) {
           return;
         }
-
         setError(validateResponseData.data.message);
-
         setIsLoading(false);
         setResult(undefined);
         return;
       }
-
       setError('Something went wrong.');
     }
   };
@@ -78,7 +75,7 @@ const CreateNameForm: FC<FormComponentProps> = ({
     maxLength: { message: 'Length must be less than 20 characters.', value: 20 },
     validate: (cuisineInput) => {
       return (
-        !filter.isProfane(cuisineInput) ||
+        !profanity.exists(cuisineInput) ||
         'Your response contains profanity and will not be accepted. Try something else.'
       );
     },
@@ -89,26 +86,20 @@ const CreateNameForm: FC<FormComponentProps> = ({
     validate: (keywords) => {
       const keywordsArray = keywords.split(',');
       const keywordsArrayLength = keywordsArray.length;
+      const isProfane = keywordsArray.some((keyword) => profanity.exists(keyword));
+      const isTooLong = keywordsArray.some((keyword) => keyword.length > 25);
 
       if (keywordsArrayLength < 2) {
         return 'You must enter at least two keywords.';
       }
-
-      const isProfane = keywordsArray.some((keyword) => filter.isProfane(keyword));
-
       if (isProfane) {
         return 'Your response contains profanity and will not be accepted. Try something else.';
       }
-
-      // check if any of the keywords are longer than 15 characters
-      const isTooLong = keywordsArray.some((keyword) => keyword.length > 15);
-
       if (isTooLong) {
         return 'Keywords must be less than 15 characters.';
       }
-
-      if (keywordsArrayLength > 5) {
-        return 'You can only enter up to 5 keywords.';
+      if (keywordsArrayLength > 6) {
+        return 'You can only enter up to 6 keywords.';
       }
       return true;
     },
@@ -119,11 +110,19 @@ const CreateNameForm: FC<FormComponentProps> = ({
     maxLength: { message: 'Length must be less than 20 characters.', value: 20 },
     validate: (locationInput) => {
       return (
-        !filter.isProfane(locationInput) ||
+        !profanity.exists(locationInput) ||
         'Your response contains profanity and will not be accepted. Try something else.'
       );
     },
   });
+
+  const useExample = () => {
+    const { cuisine, keywords, location } = generateNamePrompt();
+    setValue('cuisine', cuisine);
+    setValue('keywords', keywords);
+    setValue('location', location);
+  };
+
   return (
     <form onSubmit={handleSubmit(onSubmit)}>
       <div className="flex flex-col">
@@ -137,7 +136,7 @@ const CreateNameForm: FC<FormComponentProps> = ({
             isError={!!errors.cuisine?.message}
             formRegister={cuisineInputRegister}
             id="cuisine-input"
-            placeholder="American"
+            placeholder="Cuisine type"
           />
         </div>
         <div className="my-1">
@@ -150,7 +149,7 @@ const CreateNameForm: FC<FormComponentProps> = ({
             isError={!!errors.keywords?.message}
             formRegister={keywordsInputRegister}
             id="keyword-input"
-            placeholder="Burgers, fries, milkshakes, diner"
+            placeholder="Restaurant keywords separated by commas"
           />
         </div>
         <div className="my-1">
@@ -163,13 +162,37 @@ const CreateNameForm: FC<FormComponentProps> = ({
             isError={!!errors.location?.message}
             formRegister={locationInputRegister}
             id="location-input"
-            placeholder="Chicago"
+            placeholder="Restaurant location"
           />
         </div>
 
+        <div className="flex flex-row justify-between">
+          <div className="w-1/2 pr-1">
+            <button
+              type="button"
+              className="btn btn-primary rounded-2xl mt-5 text-xl font-bold w-full"
+              disabled={isLoading}
+              onClick={useExample}
+            >
+              Use Example
+            </button>
+          </div>
+          <div className="w-1/2  pl-1">
+            <button
+              type="button"
+              className="btn btn-primary rounded-2xl mt-5 text-xl font-bold w-full"
+              disabled={isLoading}
+              onClick={() => {
+                reset();
+              }}
+            >
+              Clear
+            </button>
+          </div>
+        </div>
         <button
           type="submit"
-          className="btn btn-primary rounded-2xl mt-5 text-xl font-bold"
+          className="btn btn-primary rounded-2xl mt-5 text-xl font-bold  w-full"
           disabled={isLoading}
         >
           Generate
