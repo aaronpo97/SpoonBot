@@ -42,7 +42,9 @@ const Navbar = () => {
     <nav className="navbar bg-primary">
       <div className="flex-1">
         <Link className="btn btn-ghost normal-case text-3xl" href="/">
-          <span className="text-xl font-bold cursor-pointer">SpoonBot</span>
+          <span className="text-xl font-bold cursor-pointer text-primary-content">
+            SpoonBot
+          </span>
         </Link>
       </div>
       <div className="flex-none lg:block hidden">
@@ -52,7 +54,7 @@ const Navbar = () => {
               <li key={page.slug}>
                 <Link tabIndex={0} href={page.slug}>
                   <span
-                    className={`text-lg font-bold hover:bg-primary-focus uppercase ${
+                    className={`text-lg font-bold lg:hover:bg-primary-focus uppercase ${
                       currentURL === page.slug ? 'bg-primary-focus' : 'bg-primary'
                     } text-primary-content`}
                   >

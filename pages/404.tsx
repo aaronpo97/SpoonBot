@@ -1,21 +1,11 @@
-import React, { useState, useEffect } from 'react';
-import { useRouter } from 'next/router';
+import React from 'react';
 import type { NextPage } from 'next';
 
 const Page404: NextPage = () => {
-  const router = useRouter();
-
-  const [currentPath, setCurrentPath] = useState('');
-  useEffect(() => {
-    setCurrentPath(router.asPath);
-  }, [router.asPath]);
-
   return (
-    <div className="flex items-center justify-center h-full">
-      <div>
-        <h1 className="font-bold text-4xl">404 Not Found</h1>
-        <p>The requested URL {currentPath} could not be found.</p>
-      </div>
+    <div className="flex items-center flex-col justify-center h-full bg-primary">
+      <h1 className="font-bold text-4xl text-primary-content">404 Not Found</h1>
+      <p className="text-primary-content">That page cannot be found.</p>
     </div>
   );
 };
