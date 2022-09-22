@@ -10,3 +10,8 @@ export const reviewGenRateLimit = new Ratelimit({
   redis,
   limiter: Ratelimit.fixedWindow(4, '1 m'),
 });
+
+export const menuGenRateLimit = new Ratelimit({
+  redis,
+  limiter: Ratelimit.fixedWindow(4, '1 m'),
+});
