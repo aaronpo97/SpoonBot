@@ -7,6 +7,8 @@ import openAICreateModeration from './openAICreateModeration';
 const generatePrompt = ({ keywords, name }: ReviewGenRequestBody) => {
   const prompt = `You are a restaurant review bot. Please write a long restaurant review based on this information.
   
+  Limit the review to 250 tokens.
+
   name: ${name}
   keywords: ${keywords}
   `;
@@ -24,7 +26,7 @@ const openAICreateReview = async (info: ReviewGenRequestBody, id: string) => {
     const result = await openai.createCompletion({
       model: 'text-curie-001',
       prompt,
-      max_tokens: 200,
+      max_tokens: 250,
       user: id,
     });
 

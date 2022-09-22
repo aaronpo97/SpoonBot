@@ -5,9 +5,11 @@ import openAICreateModeration from './openAICreateModeration';
 
 const generatePrompt = ({ keywords, cuisine, location }: NameGenRequestBody) => {
   const prompt = `
-You are a restaurant name generating AI.
+You are the owner of a new restaurant. You are tasked with creating a name for your restaurant.
 
-Using the information below, create a new name for a restaurant. The name should be as creative as possible.
+Using the information below, create a new name for your restaurant. The name should be as creative as possible.
+
+Limit the name to 100 tokens.
 
 keywords: ${keywords.join(', ')}
 cuisine: ${cuisine}

@@ -14,3 +14,10 @@ export const ReviewGenRequestBodySchema = z.object({
 });
 
 export type ReviewGenRequestBody = z.infer<typeof ReviewGenRequestBodySchema>;
+
+export const MenuGenRequestBodySchema = z.object({
+  cuisine: z.string(),
+  name: z.string(),
+});
+
+export type MenuGenRequestBody = z.infer<typeof MenuGenRequestBodySchema>;

@@ -23,6 +23,7 @@ const Navbar = () => {
   const authenticatedPages: readonly Page[] = [
     { slug: '/create-name', name: 'Create Name' },
     { slug: '/create-review', name: 'Create Review' },
+    { slug: '/create-menu', name: 'Create Menu' },
     { slug: '/api/auth/logout', name: 'Logout' },
   ];
 
