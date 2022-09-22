@@ -1,15 +1,12 @@
-import React, { FC, Dispatch, SetStateAction } from 'react';
-import { SubmitHandler, useForm } from 'react-hook-form';
 import { AxiosError } from 'axios';
+import { SubmitHandler, useForm } from 'react-hook-form';
+import React, { FC, Dispatch, SetStateAction } from 'react';
 
-import { MenuResult, ReviewResult } from '../../util/ResultType';
 import { APIErrorResponseSchema } from '../../util/APIResponseSchema';
-
+import { MenuResult } from '../../util/ResultType';
 import FormInfo from '../ui/FormInfo';
 import FormInput from '../ui/FormInput';
-import sendReviewGenRequest from '../../util/client-api-requests/sendReviewGenRequest';
 import profanity from '../../config/badwords/profanity';
-import generateReviewKeywords from '../../util/examples/generateReviewKeywords';
 import sendMenuGenRequest from '../../util/client-api-requests/sendMenuGenRequest';
 
 interface FormComponentProps {
@@ -129,12 +126,11 @@ const CreateReviewForm: FC<FormComponentProps> = ({
             placeholder="Cuisine goes here"
           />
         </div>
-
         <div className="flex flex-row justify-between">
           <div className="w-1/2 pr-1">
             <button
               type="button"
-              className="btn btn-primary rounded-2xl mt-5 lg:text-xl text-lg font-bold w-full"
+              className="btn btn-primary btn-sm rounded-2xl mt-5 lg:text-xl text-md font-bold w-full"
               disabled={isLoading}
               onClick={useExample}
             >
@@ -144,7 +140,7 @@ const CreateReviewForm: FC<FormComponentProps> = ({
           <div className="w-1/2  pl-1">
             <button
               type="button"
-              className="btn btn-primary rounded-2xl mt-5 lg:text-xl text-lg font-bold w-full"
+              className="btn btn-primary btn-sm rounded-2xl mt-5 lg:text-xl text-md font-bold w-full"
               disabled={isLoading}
               onClick={() => {
                 reset();
@@ -156,7 +152,7 @@ const CreateReviewForm: FC<FormComponentProps> = ({
         </div>
         <button
           type="submit"
-          className="btn btn-primary rounded-2xl mt-5 text-xl font-bold"
+          className="btn btn-primary rounded-2xl mt-5 text-xl font-bold  w-full"
           disabled={isLoading}
         >
           Generate

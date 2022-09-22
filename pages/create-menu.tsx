@@ -49,11 +49,11 @@ const CreateMenu: NextPage = () => {
             </p>
           </div>
         </div>
-        <div className="lg:w-6/12 bg-base-200 w-full h-96 lg:h-full flex flex-col items-center justify-center">
+        <div className="lg:w-6/12 bg-base-200 w-full py-12 h-full flex flex-col items-center justify-center">
           {isLoading && <Spinner />}
           {result && <MenuResultInfo result={result} />}
           {!result && !isLoading && !error && (
-            <p className="lg:text-3xl text-base-content font-bold">
+            <p className="lg:text-3xl md:text-xl text-base-content text-center font-bold mx-7">
               Create a restaurant name using the form!
             </p>
           )}

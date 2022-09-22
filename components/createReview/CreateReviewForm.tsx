@@ -140,11 +140,12 @@ const CreateReviewForm: FC<FormComponentProps> = ({
             placeholder="Describe the restaurant in a few words"
           />
         </div>
+
         <div className="flex flex-row justify-between">
           <div className="w-1/2 pr-1">
             <button
               type="button"
-              className="btn btn-primary rounded-2xl mt-5 lg:text-xl text-lg font-bold w-full"
+              className="btn btn-primary btn-sm rounded-2xl mt-5 lg:text-xl text-md font-bold w-full"
               disabled={isLoading}
               onClick={useExample}
             >
@@ -154,7 +155,7 @@ const CreateReviewForm: FC<FormComponentProps> = ({
           <div className="w-1/2  pl-1">
             <button
               type="button"
-              className="btn btn-primary rounded-2xl mt-5 lg:text-xl text-lg font-bold w-full"
+              className="btn btn-primary btn-sm rounded-2xl mt-5 lg:text-xl text-md font-bold w-full"
               disabled={isLoading}
               onClick={() => {
                 reset();
@@ -166,7 +167,7 @@ const CreateReviewForm: FC<FormComponentProps> = ({
         </div>
         <button
           type="submit"
-          className="btn btn-primary rounded-2xl mt-5 text-xl font-bold"
+          className="btn btn-primary rounded-2xl mt-5 text-xl font-bold  w-full"
           disabled={isLoading}
         >
           Generate

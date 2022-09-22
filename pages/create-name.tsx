@@ -52,7 +52,7 @@ const CreateName: NextPage = () => {
           {isLoading && <Spinner />}
           {result && <NameResultInfo result={result} />}
           {!result && !isLoading && !error && (
-            <p className="lg:text-3xl text-base-content font-bold">
+            <p className="lg:text-3xl text-base-content text-center font-bold mx-7">
               Create a restaurant name using the form!
             </p>
           )}

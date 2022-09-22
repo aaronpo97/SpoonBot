@@ -1,7 +1,7 @@
 import React from 'react';
 import type { NextPage } from 'next';
 import Head from 'next/head';
-import Link from 'next/link';
+
 import fs from 'fs/promises';
 import path from 'path';
 import markdownToHTML from '../util/markdownToHTML';

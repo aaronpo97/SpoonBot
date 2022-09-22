@@ -55,7 +55,7 @@ const CreateReview: NextPage = () => {
           {isLoading && <Spinner />}
           {result && <ReviewResultInfo result={result} />}
           {!result && !isLoading && !error && (
-            <p className="lg:text-3xl text-base-content font-bold">
+            <p className="lg:text-3xl text-base-content text-center font-bold mx-7">
               Create a restaurant review using the form!
             </p>
           )}

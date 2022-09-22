@@ -2,7 +2,7 @@
 
 ## What is SpoonBot?
 
-SpoonBot is a web application that uses OpenAI&apos;s GPT-3 API to generate restaurant names and reviews.
+SpoonBot is a web application that uses OpenAI&apos;s GPT-3 API to generate restaurant names, reviews, and menus.
 
 ## What is GPT-3?
 
