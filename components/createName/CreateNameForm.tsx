@@ -141,7 +141,7 @@ const CreateNameForm: FC<FormComponentProps> = ({
         </div>
         <div className="my-1">
           <FormInfo
-            label="keywords"
+            label="keywords (separated by commas)"
             labelFor="keyword-input"
             error={errors.keywords?.message}
           />

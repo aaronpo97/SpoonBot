@@ -1,6 +1,7 @@
 import React from 'react';
 import type { NextPage } from 'next';
 import Head from 'next/head';
+import sanitizeHtml from 'sanitize-html';
 
 import fs from 'fs/promises';
 import path from 'path';
@@ -13,6 +14,10 @@ const About: NextPage<{ aboutContent: string }> = ({ aboutContent }) => {
       <Head>
         <title>SpoonBot: About</title>
         <meta name="viewport" content="initial-scale=1.0, width=device-width" />
+        <meta
+          name="description"
+          content="SpoonBot is a web application that uses OpenAI's GPT-3 API to generate restaurant names, reviews, and menus."
+        />
       </Head>
       <main className="flex flex-col bg-base-300 items-center md:h-full pb-12 justify-center">
         <section className="w-8/12 text-base-content">
@@ -28,9 +33,9 @@ const About: NextPage<{ aboutContent: string }> = ({ aboutContent }) => {
 };
 
 export const getStaticProps = async () => {
-  // read markdown file
   const markdown = await fs.readFile(path.join('content-pages', 'about.md'), 'utf-8');
-  const aboutContent = await markdownToHTML(markdown);
+  const html = await markdownToHTML(markdown);
+  const aboutContent = sanitizeHtml(html);
 
   return {
     props: { aboutContent },

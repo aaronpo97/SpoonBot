@@ -129,7 +129,7 @@ const CreateReviewForm: FC<FormComponentProps> = ({
         </div>
         <div className="my-1">
           <FormInfo
-            label="keywords"
+            label="keywords/phrases (separated by commas)"
             labelFor="keyword-input"
             error={errors.keywords?.message}
           />
@@ -137,7 +137,7 @@ const CreateReviewForm: FC<FormComponentProps> = ({
             isError={!!errors.keywords?.message}
             formRegister={keywordsInputRegister}
             id="keyword-input"
-            placeholder="Describe the restaurant in a few words"
+            placeholder="Describe the restaurant in a few words/phrases"
           />
         </div>
 

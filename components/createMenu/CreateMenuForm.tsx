@@ -8,6 +8,7 @@ import FormInfo from '../ui/FormInfo';
 import FormInput from '../ui/FormInput';
 import profanity from '../../config/badwords/profanity';
 import sendMenuGenRequest from '../../util/client-api-requests/sendMenuGenRequest';
+import { cuisineAndKeywords } from '../../util/examples/data';
 
 interface FormComponentProps {
   setResult: Dispatch<SetStateAction<MenuResult | undefined>>;
@@ -21,7 +22,7 @@ interface FormProps {
   cuisine: string;
 }
 
-const CreateReviewForm: FC<FormComponentProps> = ({
+const CreateMenuForm: FC<FormComponentProps> = ({
   setResult,
   isLoading,
   setIsLoading,
@@ -47,6 +48,7 @@ const CreateReviewForm: FC<FormComponentProps> = ({
         input: { name, cuisine },
         menu: data.result,
       };
+
       setResult(incomingResult);
       setIsLoading(false);
     } catch (error) {
@@ -96,7 +98,10 @@ const CreateReviewForm: FC<FormComponentProps> = ({
   });
 
   const useExample = () => {
-    const example = { name: 'The Best Restaurant', cuisine: 'Italian' };
+    const { cuisine: randomCuisine } =
+      cuisineAndKeywords[Math.floor(Math.random() * cuisineAndKeywords.length)];
+
+    const example = { name: 'Insert name here', cuisine: randomCuisine };
     setValue('name', example.name);
     setValue('cuisine', example.cuisine);
   };
@@ -137,7 +142,7 @@ const CreateReviewForm: FC<FormComponentProps> = ({
               Use Example
             </button>
           </div>
-          <div className="w-1/2  pl-1">
+          <div className="w-1/2 pl-1">
             <button
               type="button"
               className="btn btn-primary btn-sm rounded-2xl mt-5 lg:text-xl text-md font-bold w-full"
@@ -161,4 +166,4 @@ const CreateReviewForm: FC<FormComponentProps> = ({
     </form>
   );
 };
-export default CreateReviewForm;
+export default CreateMenuForm;

@@ -21,6 +21,7 @@
     "react/jsx-props-no-spreading": "off",
     "no-console": "warn",
     "no-unused-vars": "warn",
+    "no-plusplus": ["error", { "allowForLoopAfterthoughts": true }],
 
     "import/extensions": ["off", "ignorePackages", { "ts": "never", "tsx": "never" }],
 
