@@ -5,7 +5,7 @@ const ErrorInfo: FC<{ message: string }> = ({ message }) => {
     <div className="bg-error shadow-lg w-10/12 rounded-2xl py-12 px-8">
       <div>
         <div>
-          <h1 className="text-4xl text-error-content mb-1 font-bold">Error</h1>
+          <h1 className="text-5xl text-error-content mb-1 font-extrabold">Error</h1>
           <p className="text-error-content text-lg">{message}</p>
         </div>
       </div>

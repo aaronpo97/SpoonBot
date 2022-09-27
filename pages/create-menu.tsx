@@ -1,17 +1,15 @@
 import React, { useState } from 'react';
 import type { NextPage } from 'next';
 import Head from 'next/head';
-
-import Link from 'next/link';
 import { withPageAuthRequired } from '@auth0/nextjs-auth0';
+
 import ErrorInfo from '../components/ui/ErrorInfo';
-
-import { MenuResult } from '../util/ResultType';
 import Spinner from '../components/ui/Spinner';
-
 import MenuResultInfo from '../components/createMenu/MenuResultInfo';
 import CreateMenuForm from '../components/createMenu/CreateMenuForm';
 import Acknowledgment from '../components/Acknowledgment';
+import { MenuResult } from '../util/ResultType';
+
 import {
   CreatePageContainer,
   CreatePageLeft,
@@ -27,7 +25,10 @@ const CreateMenu: NextPage = () => {
     <>
       <Head>
         <title>SpoonBot: Create a Menu</title>
-        <meta name="viewport" content="initial-scale=1.0, width=device-width" />
+        <meta
+          name="description"
+          content="Create a menu for your restaurant using SpoonBot."
+        />
       </Head>
       <CreatePageContainer>
         <CreatePageLeft>
@@ -47,7 +48,7 @@ const CreateMenu: NextPage = () => {
           {result && <MenuResultInfo result={result} />}
           {!result && !isLoading && !error && (
             <p className="lg:text-3xl md:text-xl text-base-content text-center font-bold mx-7">
-              Create a restaurant name using the form!
+              Create a restaurant menu using the form!
             </p>
           )}
           {error && <ErrorInfo message={error} />}

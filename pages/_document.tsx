@@ -22,6 +22,7 @@ export default function Document() {
           href="favicon/favicon-16x16.png"
         />
         <link rel="manifest" href="favicon/site.webmanifest" />
+        <meta name="application-name" content="SpoonBot" />
       </Head>
       <body>
         <Main />

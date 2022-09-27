@@ -9,6 +9,7 @@ import FormInput from '../ui/FormInput';
 import profanity from '../../config/badwords/profanity';
 import sendMenuGenRequest from '../../util/client-api-requests/sendMenuGenRequest';
 import { cuisineAndKeywords } from '../../util/examples/data';
+import { SmallButton, SubmitButton } from '../ui/FormButtons';
 
 interface FormComponentProps {
   setResult: Dispatch<SetStateAction<MenuResult | undefined>>;
@@ -132,36 +133,25 @@ const CreateMenuForm: FC<FormComponentProps> = ({
           />
         </div>
         <div className="flex flex-row justify-between">
-          <div className="w-1/2 pr-1">
-            <button
-              type="button"
-              className="btn btn-primary btn-sm rounded-2xl mt-5 lg:text-xl text-md font-bold w-full"
-              disabled={isLoading}
-              onClick={useExample}
-            >
+          <div className="w-1/2 mr-1">
+            <SmallButton disabled={isLoading} onClick={useExample}>
               Use Example
-            </button>
+            </SmallButton>
           </div>
-          <div className="w-1/2 pl-1">
-            <button
-              type="button"
-              className="btn btn-primary btn-sm rounded-2xl mt-5 lg:text-xl text-md font-bold w-full"
+          <div className="w-1/2 ml-1">
+            <SmallButton
               disabled={isLoading}
               onClick={() => {
                 reset();
               }}
             >
               Clear
-            </button>
+            </SmallButton>
           </div>
         </div>
-        <button
-          type="submit"
-          className="btn btn-primary rounded-2xl mt-5 text-xl font-bold  w-full"
-          disabled={isLoading}
-        >
-          Generate
-        </button>
+        <div className="mt-2">
+          <SubmitButton disabled={isLoading}>Generate</SubmitButton>
+        </div>
       </div>
     </form>
   );

@@ -13,7 +13,6 @@ const About: NextPage<{ aboutContent: string }> = ({ aboutContent }) => {
     <>
       <Head>
         <title>SpoonBot: About</title>
-        <meta name="viewport" content="initial-scale=1.0, width=device-width" />
         <meta
           name="description"
           content="SpoonBot is a web application that uses OpenAI's GPT-3 API to generate restaurant names, reviews, and menus."

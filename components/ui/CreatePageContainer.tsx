@@ -16,7 +16,7 @@ export const CreatePageLeft: FC<{ children: ReactNode }> = ({ children }) => {
 
 export const CreatePageRight: FC<{ children: ReactNode }> = ({ children }) => {
   return (
-    <div className="lg:w-6/12 bg-base-200 w-full h-96 lg:h-full flex flex-col items-center justify-center">
+    <div className="lg:w-6/12 bg-base-200 w-full lg:h-full py-8 flex flex-col items-center justify-center">
       {children}
     </div>
   );

@@ -12,13 +12,15 @@ const Home: NextPage<Props> = () => {
     <>
       <Head>
         <title>SpoonBot: Home</title>
-        <meta name="viewport" content="initial-scale=1.0, width=device-width" />
+        description
+        <meta
+          name="description"
+          content="Welcome to SpoonBot! The AI powered restaurant name, menu, and review generator."
+        />
       </Head>
       <div className="h-full flex flex-col items-center justify-center bg-primary text-primary-content">
         <h1 className="md:text-8xl text-5xl font-bold mt-[-12]">SpoonBot</h1>
-        <h2 className="md:text-3xl text-xl mt-3 font-semibold">
-          The Restaurant Name and Review Bot
-        </h2>
+        <h2 className="md:text-3xl text-xl mt-3 font-semibold">The Restaurant Bot</h2>
         <div className="mt-10 flex flex-col items-center justify-center">
           {user ? (
             <>

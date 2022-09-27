@@ -4,11 +4,9 @@ import { UseFormRegisterReturn } from 'react-hook-form';
 const FormInput: FC<{
   formRegister: UseFormRegisterReturn<string>;
   id: string;
-  // eslint-disable-next-line react/require-default-props
-  isError?: boolean;
-  // eslint-disable-next-line react/require-default-props
-  placeholder?: string;
-}> = ({ formRegister, id, placeholder, isError = false }) => {
+  isError: boolean;
+  placeholder: string;
+}> = ({ formRegister, id, placeholder, isError }) => {
   return (
     <input
       id={id}
