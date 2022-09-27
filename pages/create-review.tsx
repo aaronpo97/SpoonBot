@@ -46,14 +46,22 @@ const CreateReview: NextPage = () => {
           <Acknowledgment />
         </CreatePageLeft>
         <CreatePageRight>
-          {isLoading && <Spinner />}
-          {result && <ReviewResultInfo result={result} />}
-          {!result && !isLoading && !error && (
-            <p className="lg:text-3xl text-base-content text-center font-bold mx-7">
-              Create a restaurant review using the form!
-            </p>
+          {!(error || result) ? (
+            <div className="h-44 flex justify-center items-center">
+              {isLoading ? (
+                <Spinner />
+              ) : (
+                <p className="lg:text-3xl md:text-xl text-base-content text-center font-bold mx-7">
+                  Create a restaurant review using the form!
+                </p>
+              )}
+            </div>
+          ) : (
+            <>
+              {error && <ErrorInfo message={error} />}
+              {result && <ReviewResultInfo result={result} />}
+            </>
           )}
-          {error && <ErrorInfo message={error} />}
         </CreatePageRight>
       </CreatePageContainer>
     </>

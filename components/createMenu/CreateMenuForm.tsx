@@ -132,7 +132,7 @@ const CreateMenuForm: FC<FormComponentProps> = ({
             placeholder="Cuisine goes here"
           />
         </div>
-        <div className="flex flex-row justify-between">
+        <div className="flex flex-row justify-between mt-5">
           <div className="w-1/2 mr-1">
             <SmallButton disabled={isLoading} onClick={useExample}>
               Use Example
