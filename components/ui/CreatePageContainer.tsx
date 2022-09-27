@@ -2,13 +2,13 @@ import { FC, ReactNode } from 'react';
 
 export const CreatePageContainer: FC<{ children: ReactNode }> = ({ children }) => {
   return (
-    <div className="flex w-full flex-col lg:flex-row flex-auto h-full">{children}</div>
+    <div className="flex w-full flex-col lg:flex-row flex-auto lg:h-full">{children}</div>
   );
 };
 
 export const CreatePageLeft: FC<{ children: ReactNode }> = ({ children }) => {
   return (
-    <div className="bg-base-300 lg:w-6/12 w-full lg:h-full h-screen flex flex-col items-center justify-center">
+    <div className="bg-base-300 lg:w-6/12 w-full lg:h-full py-2 flex flex-col items-center justify-center">
       {children}
     </div>
   );

@@ -92,7 +92,9 @@ const Navbar = () => {
           >
             {pages.map((page) => (
               <li key={page.slug}>
-                <Link href={page.slug}>{page.name}</Link>
+                <Link href={page.slug}>
+                  <span className="select-none">{page.name}</span>
+                </Link>
               </li>
             ))}
           </ul>
