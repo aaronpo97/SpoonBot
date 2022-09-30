@@ -1,19 +1,20 @@
+/* eslint-disable import/no-extraneous-dependencies */
 /* eslint-disable global-require */
+
 /** @type {import('tailwindcss').Config} */
 module.exports = {
   content: ['./pages/**/*.{js,ts,jsx,tsx}', './components/**/*.{js,ts,jsx,tsx}'],
 
-  // eslint-disable-next-line import/no-extraneous-dependencies
   plugins: [require('daisyui'), require('@tailwindcss/typography')],
   daisyui: {
     logs: false,
     themes: [
       {
-        mytheme: {
+        default: {
           primary: '#2C3D78',
           'primary-content': '#FAF9F6',
           secondary: '#047773',
-          accent: '#dca2e8',
+          accent: '#fe3bd9',
           neutral: '#131520',
           'base-100': '#FBFDFE',
           'base-200': '#E2EAFA',

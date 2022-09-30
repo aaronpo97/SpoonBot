@@ -6,9 +6,7 @@ SpoonBot is a web application that uses OpenAI&apos;s GPT-3 API to generate rest
 
 ## What is GPT-3?
 
-Generative Pre-trained Transformer 3 (GPT-3) is a natural language processing model that uses a deep learning technique to generate human-like text. It was developed by OpenAI, a research lab focused on artificial intelligence and machine learning.
-
-GPT-3 is trained on a large corpus of text, such as books, articles, and conversation transcripts. The training data is used to teach the model how to write in a human-like manner. The model creates text by predicting the next word in a sequence by analyzing the words that come before it.
+Generative Pre-trained Transformer 3 (GPT-3) is a natural language processing model that uses deep learning to generate human-like text. It is developed by OpenAI, a research lab focused on artificial intelligence and machine learning. GPT-3 is trained on a large corpus of text, such as books, articles, and conversation transcripts. The model creates text by predicting the next word in a sequence by analyzing the words that come before it.
 
 ## Safety
 
