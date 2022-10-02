@@ -5,6 +5,8 @@ import ServerError from '../../util/error/ServerError';
 import { NameGenRequestBodySchema } from '../../util/RequestSchemas';
 import openAICreateName from '../../openAIRequests/openAICreateName';
 import { nameGenRateLimit } from '../../config/redis/rateLimit';
+import NameResultModel from '../../models/NameResultModel';
+import { connectMongo, disconnectMongo } from '../../config/database/connectMongo';
 
 const handler = withApiAuthRequired(
   async (req: NextApiRequest, res: NextApiResponse<unknown>) => {
@@ -14,9 +16,9 @@ const handler = withApiAuthRequired(
         throw new ServerError('Only POST requests are permitted.', 405);
       }
 
-      const session = getSession(req, res);
-      const { user } = session!;
-      const identifier = user.sid;
+      const session = getSession(req, res)!;
+      const { user } = session;
+      const identifier = user.sub as string;
       const rateLimiter = await nameGenRateLimit.limit(identifier);
 
       res.setHeader('X-RateLimit-Limit', rateLimiter.limit);
@@ -51,10 +53,19 @@ const handler = withApiAuthRequired(
       const message = 'The AI created a new restaurant name.';
       const success = true;
 
+      const nameResult = new NameResultModel({
+        input: { cuisine, keywords },
+        result,
+        metadata: { createdAt: new Date(), createdBy: identifier },
+      });
+
+      await connectMongo();
+      await nameResult.save();
+      await disconnectMongo();
+
       const responseBody: SuccessResponse = { result, status, message, success };
 
       res.statusCode = status;
-
       res.send(responseBody);
     } catch (error) {
       const isServerError = error instanceof ServerError;

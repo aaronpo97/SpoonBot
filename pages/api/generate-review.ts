@@ -5,6 +5,8 @@ import { SuccessResponse, ErrorResponse } from '../../util/APIResponseSchema';
 import ServerError from '../../util/error/ServerError';
 import { ReviewGenRequestBodySchema } from '../../util/RequestSchemas';
 import openAICreateReview from '../../openAIRequests/openAICreateReview';
+import { connectMongo, disconnectMongo } from '../../config/database/connectMongo';
+import ReviewResultModel from '../../models/ReviewResultModel';
 
 const handler = withApiAuthRequired(
   async (req: NextApiRequest, res: NextApiResponse<unknown>) => {
@@ -37,11 +39,26 @@ const handler = withApiAuthRequired(
         );
       }
 
-      const { keywords, name } = parseBody.data;
+      const { keywords: untrimmedKeywords, name } = parseBody.data;
+
+      const keywords = untrimmedKeywords.map((keyword) => keyword.trim());
       const result = await openAICreateReview({ keywords, name }, identifier);
       const status = 201;
       const message = 'The AI created a new restaurant review.';
       const success = true;
+
+      const reviewResult = new ReviewResultModel({
+        input: { keywords, name },
+        result,
+        metadata: {
+          createdAt: new Date(),
+          createdBy: identifier,
+        },
+      });
+
+      await connectMongo();
+      await reviewResult.save();
+      await disconnectMongo();
 
       const responseBody: SuccessResponse = { result, status, message, success };
 
