@@ -1,12 +1,13 @@
 import { NextApiRequest, NextApiResponse } from 'next';
 import { getSession, withApiAuthRequired } from '@auth0/nextjs-auth0';
-import { SuccessResponse, ErrorResponse } from '../../util/APIResponseSchema';
+import { SuccessResponse } from '../../util/APIResponseSchema';
 import ServerError from '../../util/error/ServerError';
 import { NameGenRequestBodySchema } from '../../util/RequestSchemas';
 import openAICreateName from '../../openAIRequests/openAICreateName';
 import { nameGenRateLimit } from '../../config/redis/rateLimit';
 import NameResultModel from '../../models/NameResultModel';
 import { connectMongo, disconnectMongo } from '../../config/database/connectMongo';
+import errorHandler from '../../util/error/errorHandler';
 
 const handler = withApiAuthRequired(
   async (req: NextApiRequest, res: NextApiResponse<unknown>) => {
@@ -54,7 +55,7 @@ const handler = withApiAuthRequired(
       const success = true;
 
       const nameResult = new NameResultModel({
-        input: { cuisine, keywords },
+        input: { cuisine, keywords: keywords.map((keyword) => keyword.trim()) },
         result,
         metadata: { createdAt: new Date(), createdBy: identifier },
       });
@@ -68,14 +69,7 @@ const handler = withApiAuthRequired(
       res.statusCode = status;
       res.send(responseBody);
     } catch (error) {
-      const isServerError = error instanceof ServerError;
-
-      const message = isServerError ? error.message : 'Something went wrong.';
-      const status = isServerError && error.status ? error.status : 500;
-      const responseBody: ErrorResponse = { message, status, success: false };
-
-      res.statusCode = status;
-      res.send(responseBody);
+      errorHandler(error, res);
     }
   },
 );

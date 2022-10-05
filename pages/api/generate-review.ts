@@ -1,12 +1,13 @@
 import { getSession, withApiAuthRequired } from '@auth0/nextjs-auth0';
 import { NextApiRequest, NextApiResponse } from 'next';
 import { reviewGenRateLimit } from '../../config/redis/rateLimit';
-import { SuccessResponse, ErrorResponse } from '../../util/APIResponseSchema';
+import { SuccessResponse } from '../../util/APIResponseSchema';
 import ServerError from '../../util/error/ServerError';
 import { ReviewGenRequestBodySchema } from '../../util/RequestSchemas';
 import openAICreateReview from '../../openAIRequests/openAICreateReview';
 import { connectMongo, disconnectMongo } from '../../config/database/connectMongo';
 import ReviewResultModel from '../../models/ReviewResultModel';
+import errorHandler from '../../util/error/errorHandler';
 
 const handler = withApiAuthRequired(
   async (req: NextApiRequest, res: NextApiResponse<unknown>) => {
@@ -65,14 +66,7 @@ const handler = withApiAuthRequired(
       res.statusCode = status;
       res.send(responseBody);
     } catch (error) {
-      const isServerError = error instanceof ServerError;
-      const message = isServerError ? error.message : 'Something went wrong.';
-      const status = isServerError ? error.status : 500;
-
-      const responseBody: ErrorResponse = { message, status, success: false };
-
-      res.statusCode = status;
-      res.send(responseBody);
+      errorHandler(error, res);
     }
   },
 );

@@ -1,10 +1,11 @@
 import { getSession, withApiAuthRequired } from '@auth0/nextjs-auth0';
 import { NextApiRequest, NextApiResponse } from 'next';
-import { connectMongo } from '../../config/database/connectMongo';
-import { GetSavedResultsResponse } from '../../util/APIResponseSchema';
-import NameResultModel from '../../models/NameResultModel';
+import { connectMongo } from '../../../../config/database/connectMongo';
+import errorHandler from '../../../../util/error/errorHandler';
+import NameResultModel from '../../../../models/NameResultModel';
+import { GetSavedResultsResponse } from '../../../../util/APIResponseSchema';
 
-const handler = withApiAuthRequired(
+const getSavedNames = withApiAuthRequired(
   async (req: NextApiRequest, res: NextApiResponse<unknown>) => {
     try {
       const { user } = getSession(req, res)!;
@@ -21,8 +22,8 @@ const handler = withApiAuthRequired(
 
       res.status(status).json(response);
     } catch (error) {
-      res.status(500).json(error);
+      errorHandler(error, res);
     }
   },
 );
-export default handler;
+export default getSavedNames;

@@ -1,14 +1,15 @@
 import { getSession, withApiAuthRequired } from '@auth0/nextjs-auth0';
 import { NextApiRequest, NextApiResponse } from 'next';
 import { z } from 'zod';
-import { connectMongo } from '../../config/database/connectMongo';
-import MenuResultModel from '../../models/MenuResultModel';
+import { connectMongo } from '../../../../config/database/connectMongo';
+import errorHandler from '../../../../util/error/errorHandler';
+import MenuResultModel from '../../../../models/MenuResultModel';
 import {
   GetSavedResultsResponse,
   MenuResultZodSchema,
-} from '../../util/APIResponseSchema';
+} from '../../../../util/APIResponseSchema';
 
-const handler = withApiAuthRequired(
+const getSavedMenus = withApiAuthRequired(
   async (req: NextApiRequest, res: NextApiResponse<unknown>) => {
     try {
       const { user } = getSession(req, res)!;
@@ -26,8 +27,8 @@ const handler = withApiAuthRequired(
 
       res.status(status).json(response);
     } catch (error) {
-      res.status(500).json(error);
+      errorHandler(error, res);
     }
   },
 );
-export default handler;
+export default getSavedMenus;

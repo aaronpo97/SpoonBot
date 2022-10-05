@@ -1,6 +1,8 @@
 /* eslint-disable jsx-a11y/no-noninteractive-tabindex */
 /* eslint-disable jsx-a11y/label-has-associated-control */
 /* eslint-disable jsx-a11y/label-has-for */
+
+import { BiMenu } from 'react-icons/bi';
 import { useUser } from '@auth0/nextjs-auth0';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
@@ -24,6 +26,7 @@ const Navbar = () => {
     { slug: '/create-name', name: 'Create Name' },
     { slug: '/create-review', name: 'Create Review' },
     { slug: '/create-menu', name: 'Create Menu' },
+    { slug: '/account', name: 'Account' },
     { slug: '/api/auth/logout', name: 'Logout' },
   ];
 
@@ -56,7 +59,7 @@ const Navbar = () => {
                 <Link tabIndex={0} href={page.slug}>
                   <span
                     className={`text-lg font-bold lg:hover:bg-primary-focus uppercase ${
-                      currentURL === page.slug ? 'bg-primary-focus' : 'bg-primary'
+                      currentURL.includes(page.slug) ? 'bg-primary-focus' : 'bg-primary'
                     } text-primary-content`}
                   >
                     {page.name}
@@ -70,21 +73,7 @@ const Navbar = () => {
       <div className="flex-none lg:hidden">
         <div className="dropdown dropdown-end">
           <label tabIndex={0} className="btn btn-ghost btn-circle">
-            <div className="w-10 rounded-full">
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                fill="none"
-                viewBox="0 0 24 24"
-                className="inline-block w-5 h-5 stroke-white"
-              >
-                <path
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  strokeWidth="2"
-                  d="M4 6h16M4 12h16M4 18h16"
-                />
-              </svg>
-            </div>
+            <BiMenu size={23} className="text-white" />
           </label>
           <ul
             tabIndex={0}
