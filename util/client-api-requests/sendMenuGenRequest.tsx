@@ -16,7 +16,6 @@ const sendMenuGenRequest = async ({ cuisine, name }: MenuGenRequestBody) => {
   if (!parseAsSuccessRes.success) {
     throw new Error('Something went wrong.');
   }
-  console.log(parseAsSuccessRes.data);
   return parseAsSuccessRes.data;
 };
 

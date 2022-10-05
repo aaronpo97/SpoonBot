@@ -1,10 +1,13 @@
 import { NextApiRequest, NextApiResponse } from 'next';
 import { getSession, withApiAuthRequired } from '@auth0/nextjs-auth0';
+import { connectMongo, disconnectMongo } from '../../config/database/connectMongo';
 import { MenuGenRequestBodySchema } from '../../util/RequestSchemas';
-import { SuccessResponse, ErrorResponse } from '../../util/APIResponseSchema';
+import { SuccessResponse } from '../../util/APIResponseSchema';
 import ServerError from '../../util/error/ServerError';
 import { nameGenRateLimit } from '../../config/redis/rateLimit';
 import openAiCreateMenu from '../../openAIRequests/openAICreateMenu';
+import MenuResultModel from '../../models/MenuResultModel';
+import errorHandler from '../../util/error/errorHandler';
 
 const handler = withApiAuthRequired(
   async (req: NextApiRequest, res: NextApiResponse<unknown>) => {
@@ -16,7 +19,7 @@ const handler = withApiAuthRequired(
 
       const session = getSession(req, res);
       const { user } = session!;
-      const identifier = user.sid;
+      const identifier = user.sub as string;
       const rateLimiter = await nameGenRateLimit.limit(identifier);
 
       res.setHeader('X-RateLimit-Limit', rateLimiter.limit);
@@ -39,6 +42,20 @@ const handler = withApiAuthRequired(
       const { cuisine, name } = parseBody.data;
 
       const result = await openAiCreateMenu({ cuisine, name }, identifier);
+
+      const menuResult = new MenuResultModel({
+        input: { cuisine, name },
+        result,
+        metadata: {
+          createdAt: new Date(),
+          createdBy: identifier,
+        },
+      });
+
+      await connectMongo();
+      await menuResult.save();
+      await disconnectMongo();
+
       const status = 201;
       const message = 'The AI created a new restaurant menu.';
       const success = true;
@@ -49,14 +66,7 @@ const handler = withApiAuthRequired(
 
       res.send(responseBody);
     } catch (error) {
-      const isServerError = error instanceof ServerError;
-
-      const message = isServerError ? error.message : 'Something went wrong.';
-      const status = isServerError && error.status ? error.status : 500;
-      const responseBody: ErrorResponse = { message, status, success: false };
-
-      res.statusCode = status;
-      res.send(responseBody);
+      errorHandler(error, res);
     }
   },
 );
