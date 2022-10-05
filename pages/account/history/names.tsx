@@ -5,6 +5,10 @@ import { NextPage } from 'next';
 import { FC, useEffect, useState } from 'react';
 import { z } from 'zod';
 import SavedHistoryLayout from '../../../components/savedHistory/SavedHistoryLayout';
+import SavedResultCard, {
+  SavedResultLeft,
+  SavedResultRight,
+} from '../../../components/savedHistory/SavedResultCard';
 import {
   APIGetSavedResultsSchema,
   NameResultT,
@@ -22,32 +26,43 @@ const getAllNames = async () => {
   return payload;
 };
 
-const SavedName: FC<{ name: NameResultT }> = ({ name }) => {
+const deleteNameById = async (id: string) => {
+  const { data } = await axios.delete(`/api/saved/names/${id}`);
+  const parsedData = APIGetSavedResultsSchema.parse(data);
+  return parsedData;
+};
+
+const SavedName: FC<{
+  name: NameResultT;
+  handleDelete: (id: string) => Promise<void>;
+}> = ({ name, handleDelete }) => {
   return (
-    <div className="flex flex-row my-6 bg-slate-200 p-10 rounded-xl shadow-lg">
-      <div className="lg:w-4/12">
-        <div className="mb-3">
-          <h3 className="font-bold uppercase">Cuisine</h3>
-          <p className="text-xl">{name.input.cuisine}</p>
+    <SavedResultCard
+      handleDelete={handleDelete}
+      resource={name}
+      deleteTooltipLabel="Delete Name"
+    >
+      <SavedResultLeft>
+        <div className="w-full p-2">
+          <h3 className="font-bold uppercase my-1 text-xl">Cuisine</h3>
+          <p className="font-semibold text-lg">{name.input.cuisine}</p>
         </div>
-        <div className="mb-3">
-          <h3 className="font-bold uppercase">Keywords/Phrases</h3>
-          <ul>
+        <div className="w-full p-2">
+          <h3 className="font-bold uppercase my-1 text-xl">Keywords/Phrases</h3>
+          <ul className="list-disc list-inside">
             {name.input.keywords.map((keyword) => (
-              <li key={keyword} className="w-full list-disc list-inside">
-                {keyword}
-              </li>
+              <li className="text-lg">{keyword}</li>
             ))}
           </ul>
         </div>
-      </div>
-      <div className="lg:w-8/12">
-        <h3 className="font-bold uppercase mb-2">Spoonbot&apos;s Generated Name</h3>
-        <div className="h-full flex flex-col">
-          <span className="text-5xl font-bold">{name.result}</span>
+      </SavedResultLeft>
+      <SavedResultRight>
+        <div className="w-full p-2">
+          <h3 className="font-bold uppercase my-1 text-xl">Name</h3>
+          <p className="font-semibold text-6xl">{name.result}</p>
         </div>
-      </div>
-    </div>
+      </SavedResultRight>
+    </SavedResultCard>
   );
 };
 
@@ -65,10 +80,17 @@ const SavedNamesPage: NextPage<SavedReviewsPageProps> = () => {
     });
   }, []);
 
+  const handleDelete = async (id: string) => {
+    await deleteNameById(id);
+    setNames(names.filter((name) => name._id !== id));
+  };
+
   return (
     <SavedHistoryLayout currentSidebarItem="names" isLoading={isLoading}>
       {names.map((name) => {
-        return <SavedName key={name._id as string} name={name} />;
+        return (
+          <SavedName key={name._id as string} name={name} handleDelete={handleDelete} />
+        );
       })}
     </SavedHistoryLayout>
   );
