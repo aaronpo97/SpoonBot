@@ -1,12 +1,11 @@
 import { getSession, withApiAuthRequired } from '@auth0/nextjs-auth0';
 import { NextApiRequest, NextApiResponse } from 'next';
+import { createNewSavedReview } from '../../services/savedResults/ReviewService';
 import { reviewGenRateLimit } from '../../config/redis/rateLimit';
-import { SuccessResponse } from '../../util/APIResponseSchema';
+import { ReviewResultT, SuccessResponse } from '../../util/APIResponseSchema';
 import ServerError from '../../util/error/ServerError';
 import { ReviewGenRequestBodySchema } from '../../util/RequestSchemas';
 import openAICreateReview from '../../openAIRequests/openAICreateReview';
-import { connectMongo, disconnectMongo } from '../../config/database/connectMongo';
-import ReviewResultModel from '../../models/ReviewResultModel';
 import errorHandler from '../../util/error/errorHandler';
 
 const handler = withApiAuthRequired(
@@ -48,19 +47,13 @@ const handler = withApiAuthRequired(
       const message = 'The AI created a new restaurant review.';
       const success = true;
 
-      const reviewResult = new ReviewResultModel({
+      const reviewResult: ReviewResultT = {
         input: { keywords, name },
         result,
-        metadata: {
-          createdAt: new Date(),
-          createdBy: identifier,
-        },
-      });
+        metadata: { createdAt: new Date(), createdBy: identifier },
+      };
 
-      await connectMongo();
-      await reviewResult.save();
-      await disconnectMongo();
-
+      await createNewSavedReview(reviewResult);
       const responseBody: SuccessResponse = { result, status, message, success };
 
       res.statusCode = status;

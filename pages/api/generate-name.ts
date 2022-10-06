@@ -1,12 +1,11 @@
 import { NextApiRequest, NextApiResponse } from 'next';
 import { getSession, withApiAuthRequired } from '@auth0/nextjs-auth0';
-import { SuccessResponse } from '../../util/APIResponseSchema';
+import { NameResultT, SuccessResponse } from '../../util/APIResponseSchema';
+import { createNewSavedName } from '../../services/savedResults/NameService';
 import ServerError from '../../util/error/ServerError';
 import { NameGenRequestBodySchema } from '../../util/RequestSchemas';
 import openAICreateName from '../../openAIRequests/openAICreateName';
 import { nameGenRateLimit } from '../../config/redis/rateLimit';
-import NameResultModel from '../../models/NameResultModel';
-import { connectMongo, disconnectMongo } from '../../config/database/connectMongo';
 import errorHandler from '../../util/error/errorHandler';
 
 const handler = withApiAuthRequired(
@@ -54,15 +53,13 @@ const handler = withApiAuthRequired(
       const message = 'The AI created a new restaurant name.';
       const success = true;
 
-      const nameResult = new NameResultModel({
+      const nameResult: NameResultT = {
         input: { cuisine, keywords: keywords.map((keyword) => keyword.trim()) },
         result,
         metadata: { createdAt: new Date(), createdBy: identifier },
-      });
+      };
 
-      await connectMongo();
-      await nameResult.save();
-      await disconnectMongo();
+      await createNewSavedName(nameResult);
 
       const responseBody: SuccessResponse = { result, status, message, success };
 

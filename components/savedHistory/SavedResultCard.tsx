@@ -22,7 +22,10 @@ const SavedResultCard: FC<{
       <div className="pr-2 pb-2 flex items-center justify-between w-full">
         <div
           className="tooltip tooltip-right tooltip-primary"
-          data-tip={format(new Date(resource.metadata.createdAt), 'PPpp')}
+          data-tip={format(
+            new Date(resource.metadata.createdAt),
+            'MMMM do yyyy – h:mm a',
+          )}
         >
           <p className="pl-7 pr-2 text-sm italic font-bold text-left">
             created {timeDiff}

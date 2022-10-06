@@ -47,8 +47,6 @@ const SavedMenusPage: NextPage<SavedReviewsPageProps> = () => {
     const response = await deleteMenuById(id);
     if (response.success) {
       setMenus((prev) => prev.filter((menu) => menu._id !== id));
-    } else {
-      console.error(response.message);
     }
   };
 

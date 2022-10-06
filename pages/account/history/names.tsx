@@ -34,6 +34,7 @@ const deleteNameById = async (id: string) => {
 
 const SavedName: FC<{
   name: NameResultT;
+  // eslint-disable-next-line no-unused-vars
   handleDelete: (id: string) => Promise<void>;
 }> = ({ name, handleDelete }) => {
   return (
