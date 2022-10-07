@@ -29,7 +29,7 @@ const SavedNameCard: FC<{
       </SavedResultLeft>
       <SavedResultRight>
         <div className="w-full p-2">
-          <h3 className="font-bold uppercase my-1 text-xl">Name</h3>
+          <h3 className="font-bold uppercase my-1 text-xl">Spoonbot&apos;s Name</h3>
           <p className="font-semibold text-6xl italic">{name.result}</p>
         </div>
       </SavedResultRight>

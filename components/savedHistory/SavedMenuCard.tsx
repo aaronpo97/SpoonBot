@@ -26,7 +26,7 @@ const SavedMenuCard: FC<{
       </SavedResultLeft>
       <SavedResultRight>
         <div className="w-full p-2">
-          <h3 className="font-bold uppercase my-1 text-xl">Menu</h3>
+          <h3 className="font-bold uppercase my-1 text-xl">Spoonbot&apos;s Menu</h3>
           {menuData.map((line) => {
             const lineSaysAppetizer = line.toLowerCase().includes('appetizer');
             const lineSaysEntree = line.toLowerCase().includes('entree');
