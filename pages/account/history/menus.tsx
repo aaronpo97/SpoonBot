@@ -1,6 +1,7 @@
 /* eslint-disable no-underscore-dangle */
 import { withPageAuthRequired } from '@auth0/nextjs-auth0';
 import { NextPage } from 'next';
+import Head from 'next/head';
 import { useEffect, useState } from 'react';
 import SavedHistoryLayout from '../../../components/savedHistory/SavedHistoryLayout';
 import SavedMenuCard from '../../../components/savedHistory/SavedMenuCard';
@@ -31,17 +32,22 @@ const SavedMenusPage: NextPage<SavedReviewsPageProps> = () => {
   };
 
   return (
-    <SavedHistoryLayout isLoading={isLoading} currentSidebarItem="menus">
-      {menus.map((menu) => {
-        return (
-          <SavedMenuCard
-            key={menu._id as string}
-            menu={menu}
-            handleDelete={handleDelete}
-          />
-        );
-      })}
-    </SavedHistoryLayout>
+    <>
+      <Head>
+        <title>Saved Menus</title>
+      </Head>
+      <SavedHistoryLayout isLoading={isLoading} currentSidebarItem="menus">
+        {menus.map((menu) => {
+          return (
+            <SavedMenuCard
+              key={menu._id as string}
+              menu={menu}
+              handleDelete={handleDelete}
+            />
+          );
+        })}
+      </SavedHistoryLayout>
+    </>
   );
 };
 

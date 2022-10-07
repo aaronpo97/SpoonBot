@@ -30,7 +30,7 @@ const SavedNameCard: FC<{
       <SavedResultRight>
         <div className="w-full p-2">
           <h3 className="font-bold uppercase my-1 text-xl">Name</h3>
-          <p className="font-semibold text-6xl">{name.result}</p>
+          <p className="font-semibold text-6xl italic">{name.result}</p>
         </div>
       </SavedResultRight>
     </SavedResultCard>

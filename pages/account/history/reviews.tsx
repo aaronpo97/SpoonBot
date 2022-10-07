@@ -3,6 +3,7 @@
 import { withPageAuthRequired } from '@auth0/nextjs-auth0';
 import { useState, useEffect } from 'react';
 import { NextPage } from 'next';
+import Head from 'next/head';
 import SavedHistoryLayout from '../../../components/savedHistory/SavedHistoryLayout';
 import { ReviewResultT } from '../../../util/APIResponseSchema';
 import SavedReview from '../../../components/savedHistory/SavedReview';
@@ -35,15 +36,20 @@ const SavedReviewsPage: NextPage<SavedReviewsPageProps> = () => {
   };
 
   return (
-    <SavedHistoryLayout isLoading={isLoading} currentSidebarItem="reviews">
-      {reviews.map((review) => (
-        <SavedReview
-          handleDelete={handleDelete}
-          review={review}
-          key={review._id as string}
-        />
-      ))}
-    </SavedHistoryLayout>
+    <>
+      <Head>
+        <title>Saved Reviews</title>
+      </Head>
+      <SavedHistoryLayout isLoading={isLoading} currentSidebarItem="reviews">
+        {reviews.map((review) => (
+          <SavedReview
+            handleDelete={handleDelete}
+            review={review}
+            key={review._id as string}
+          />
+        ))}
+      </SavedHistoryLayout>
+    </>
   );
 };
 

@@ -37,9 +37,9 @@ const SavedMenuCard: FC<{
               lineSaysAppetizer || lineSaysEntree || lineSaysDessert || lineSaysDrink;
 
             return isHeading ? (
-              <h5 className="font-bold text-md my-2 uppercase">{line}</h5>
+              <h5 className="font-bold text-lg my-2 uppercase">{line}</h5>
             ) : (
-              <p className="italic">{line}</p>
+              <p className="italic text-lg">{line}</p>
             );
           })}
         </div>
