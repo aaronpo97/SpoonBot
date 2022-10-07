@@ -1,12 +1,15 @@
 import { NextApiHandler } from 'next';
 import { getSession, withApiAuthRequired } from '@auth0/nextjs-auth0';
+import {
+  deleteMenuById,
+  getMenuById,
+} from '../../../../services/savedResults/MenuService';
 import { connectMongo } from '../../../../config/database/connectMongo';
 import ServerError from '../../../../util/error/ServerError';
-import MenuResultModel from '../../../../models/MenuResultModel';
-import { GetSavedResultsResponse, MenuResultT } from '../../../../util/APIResponseSchema';
+import { GetSavedResultsResponse } from '../../../../util/APIResponseSchema';
 import errorHandler from '../../../../util/error/errorHandler';
 
-const deleteNameById: NextApiHandler<GetSavedResultsResponse> = withApiAuthRequired(
+const deleteMenu: NextApiHandler<GetSavedResultsResponse> = withApiAuthRequired(
   async (req, res) => {
     try {
       if (req.method !== 'DELETE') {
@@ -19,7 +22,7 @@ const deleteNameById: NextApiHandler<GetSavedResultsResponse> = withApiAuthRequi
 
       await connectMongo();
 
-      const data = await MenuResultModel.findOne<MenuResultT>({ _id: id });
+      const data = await getMenuById(id as string);
       if (!data) {
         throw new ServerError('No data found for that id', 404);
       }
@@ -27,7 +30,7 @@ const deleteNameById: NextApiHandler<GetSavedResultsResponse> = withApiAuthRequi
         throw new ServerError("You don't have permission to do that.", 403);
       }
 
-      await MenuResultModel.deleteOne({ _id: id });
+      await deleteMenuById(id as string);
 
       const status = 200;
       const message = 'Successfully deleted saved menu.';
@@ -46,4 +49,4 @@ const deleteNameById: NextApiHandler<GetSavedResultsResponse> = withApiAuthRequi
   },
 );
 
-export default deleteNameById;
+export default deleteMenu;

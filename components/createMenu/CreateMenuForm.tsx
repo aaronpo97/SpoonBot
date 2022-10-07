@@ -7,7 +7,7 @@ import { MenuResult } from '../../util/ResultType';
 import FormInfo from '../ui/FormInfo';
 import FormInput from '../ui/FormInput';
 import profanity from '../../config/badwords/profanity';
-import sendMenuGenRequest from '../../util/client-api-requests/sendMenuGenRequest';
+import sendMenuGenRequest from '../../util/client-api-requests/generate/sendMenuGenRequest';
 import { cuisineAndKeywords } from '../../util/examples/data';
 import { SmallButton, SubmitButton } from '../ui/FormButtons';
 

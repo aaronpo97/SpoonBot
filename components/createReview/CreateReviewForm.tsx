@@ -7,10 +7,11 @@ import { APIErrorResponseSchema } from '../../util/APIResponseSchema';
 
 import FormInfo from '../ui/FormInfo';
 import FormInput from '../ui/FormInput';
-import sendReviewGenRequest from '../../util/client-api-requests/sendReviewGenRequest';
+
 import profanity from '../../config/badwords/profanity';
 import generateReviewKeywords from '../../util/examples/generateReviewKeywords';
 import { SmallButton, SubmitButton } from '../ui/FormButtons';
+import sendReviewGenRequest from '../../util/client-api-requests/generate/sendReviewGenRequest';
 
 interface FormComponentProps {
   setResult: Dispatch<SetStateAction<ReviewResult | undefined>>;

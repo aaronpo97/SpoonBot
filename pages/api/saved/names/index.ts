@@ -1,22 +1,23 @@
 import { getSession, withApiAuthRequired } from '@auth0/nextjs-auth0';
 import { NextApiRequest, NextApiResponse } from 'next';
-import { connectMongo } from '../../../../config/database/connectMongo';
+import { z } from 'zod';
 import errorHandler from '../../../../util/error/errorHandler';
-import NameResultModel from '../../../../models/NameResultModel';
-import { GetSavedResultsResponse } from '../../../../util/APIResponseSchema';
+import {
+  GetSavedResultsResponse,
+  NameResultZodSchema,
+} from '../../../../util/APIResponseSchema';
+import { getAllUserSavedNames } from '../../../../services/savedResults/NameService';
 
 const getSavedNames = withApiAuthRequired(
   async (req: NextApiRequest, res: NextApiResponse<unknown>) => {
     try {
       const { user } = getSession(req, res)!;
-      await connectMongo();
+      const names = await getAllUserSavedNames(user.sub);
 
-      const nameResult = await NameResultModel.find({ 'metadata.createdBy': user.sub });
-
+      const data = z.array(NameResultZodSchema).parse(names);
       const status = 200;
       const message = 'Successfully retrieved saved restaurant names.';
       const success = true;
-      const data = nameResult;
 
       const response: GetSavedResultsResponse = { data, status, message, success };
 

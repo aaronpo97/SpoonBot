@@ -1,6 +1,6 @@
 import axios from 'axios';
-import { ReviewGenRequestBody } from '../RequestSchemas';
-import { APISuccessResponseSchema } from '../APIResponseSchema';
+import { APISuccessResponseSchema } from '../../APIResponseSchema';
+import { ReviewGenRequestBody } from '../../RequestSchemas';
 
 const sendReviewGenRequest = async ({ name, keywords }: ReviewGenRequestBody) => {
   const response = await axios.post('/api/generate-review', { name, keywords });
