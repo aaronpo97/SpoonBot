@@ -1,6 +1,6 @@
 import axios from 'axios';
-import { APISuccessResponseSchema } from '../APIResponseSchema';
-import { NameGenRequestBody } from '../RequestSchemas';
+import { APISuccessResponseSchema } from '../../APIResponseSchema';
+import { NameGenRequestBody } from '../../RequestSchemas';
 
 const sendNameGenRequest = async ({
   cuisine,

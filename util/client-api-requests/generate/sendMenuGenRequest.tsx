@@ -1,8 +1,8 @@
 // send menu gen request using axios
 
 import axios from 'axios';
-import { APISuccessResponseSchema } from '../APIResponseSchema';
-import { MenuGenRequestBody } from '../RequestSchemas';
+import { APISuccessResponseSchema } from '../../APIResponseSchema';
+import { MenuGenRequestBody } from '../../RequestSchemas';
 
 const sendMenuGenRequest = async ({ cuisine, name }: MenuGenRequestBody) => {
   const response = await axios.post('/api/generate-menu', {

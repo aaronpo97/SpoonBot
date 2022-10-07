@@ -1,12 +1,12 @@
 import { NextApiRequest, NextApiResponse } from 'next';
 import { getSession, withApiAuthRequired } from '@auth0/nextjs-auth0';
-import { GetSavedResultsResponse, NameResultT } from '../../../../util/APIResponseSchema';
-import NameResultModel from '../../../../models/NameResultModel';
-import { connectMongo } from '../../../../config/database/connectMongo';
+import { getNameById } from '../../../../services/savedResults/NameService';
+import { GetSavedResultsResponse } from '../../../../util/APIResponseSchema';
 import ServerError from '../../../../util/error/ServerError';
 import errorHandler from '../../../../util/error/errorHandler';
+import { deleteMenuById } from '../../../../services/savedResults/MenuService';
 
-const deleteNameById = withApiAuthRequired(
+const deleteName = withApiAuthRequired(
   async (req: NextApiRequest, res: NextApiResponse<unknown>) => {
     try {
       if (req.method !== 'DELETE') {
@@ -17,9 +17,7 @@ const deleteNameById = withApiAuthRequired(
       const { user } = getSession(req, res)!;
 
       const { id } = req.query;
-
-      await connectMongo();
-      const data = await NameResultModel.findOne<NameResultT>({ _id: id });
+      const data = await getNameById(id as string);
       if (!data) {
         throw new ServerError('No data found for that id', 404);
       }
@@ -28,7 +26,7 @@ const deleteNameById = withApiAuthRequired(
         throw new ServerError("You don't have permission to do that.", 403);
       }
 
-      await NameResultModel.deleteOne({ _id: id! });
+      await deleteMenuById(id as string);
 
       const status = 200;
       const message = 'Successfully deleted saved name.';
@@ -47,4 +45,4 @@ const deleteNameById = withApiAuthRequired(
   },
 );
 
-export default deleteNameById;
+export default deleteName;

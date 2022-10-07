@@ -1,35 +1,17 @@
 /* eslint-disable jsx-a11y/no-noninteractive-tabindex */
 /* eslint-disable no-underscore-dangle */
 import { withPageAuthRequired } from '@auth0/nextjs-auth0';
-import axios from 'axios';
 import { useState, useEffect } from 'react';
-import { z } from 'zod';
 import { NextPage } from 'next';
 import SavedHistoryLayout from '../../../components/savedHistory/SavedHistoryLayout';
-import {
-  APIGetSavedResultsSchema,
-  ReviewResultZodSchema,
-  ReviewResultT,
-} from '../../../util/APIResponseSchema';
+import { ReviewResultT } from '../../../util/APIResponseSchema';
 import SavedReview from '../../../components/savedHistory/SavedReview';
+import deleteReviewById from '../../../util/client-api-requests/savedResults/reviews/deleteReviewById';
+import getAllReviews from '../../../util/client-api-requests/savedResults/reviews/getAllReviews';
 
 interface SavedReviewsPageProps {}
 
 // get all reviews from the database from  /api/saved-reviews
-
-const getAllReviews = async () => {
-  const { data } = await axios.get('/api/saved/reviews');
-  const parsedData = APIGetSavedResultsSchema.parse(data);
-  const payload = z.array(ReviewResultZodSchema).parse(parsedData.data);
-  return payload;
-};
-
-const deleteReviewById = async (id: string) => {
-  const { data } = await axios.delete(`/api/saved/reviews/${id}`);
-  const parsedData = APIGetSavedResultsSchema.parse(data);
-
-  return parsedData;
-};
 
 const SavedReviewsPage: NextPage<SavedReviewsPageProps> = () => {
   const [reviews, setReviews] = useState<ReviewResultT[]>([]);
@@ -45,8 +27,11 @@ const SavedReviewsPage: NextPage<SavedReviewsPageProps> = () => {
   }, []);
 
   const handleDelete = async (id: string) => {
-    await deleteReviewById(id);
-    setReviews(reviews.filter((review) => review._id !== id));
+    const response = await deleteReviewById(id);
+
+    if (response.success) {
+      setReviews(reviews.filter((review) => review._id !== id));
+    }
   };
 
   return (

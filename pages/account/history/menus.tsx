@@ -1,34 +1,14 @@
 /* eslint-disable no-underscore-dangle */
 import { withPageAuthRequired } from '@auth0/nextjs-auth0';
-import axios from 'axios';
 import { NextPage } from 'next';
 import { useEffect, useState } from 'react';
-import { z } from 'zod';
 import SavedHistoryLayout from '../../../components/savedHistory/SavedHistoryLayout';
 import SavedMenuCard from '../../../components/savedHistory/SavedMenuCard';
-import {
-  APIGetSavedResultsSchema,
-  MenuResultZodSchema,
-  MenuResultT,
-} from '../../../util/APIResponseSchema';
+import { MenuResultT } from '../../../util/APIResponseSchema';
+import deleteMenuById from '../../../util/client-api-requests/savedResults/menus/deleteMenuById';
+import getAllSavedMenus from '../../../util/client-api-requests/savedResults/menus/getAllSavedMenus';
 
 interface SavedReviewsPageProps {}
-
-// get all reviews from the database from  /api/saved-reviews
-
-const getAllMenus = async () => {
-  const { data } = await axios.get('/api/saved/menus');
-  const parsedData = APIGetSavedResultsSchema.parse(data);
-  const payload = z.array(MenuResultZodSchema).parse(parsedData.data);
-  return payload;
-};
-
-const deleteMenuById = async (id: string) => {
-  const response = await axios.delete(`/api/saved/menus/${id}`);
-  const parsedData = APIGetSavedResultsSchema.parse(response.data);
-
-  return parsedData;
-};
 
 const SavedMenusPage: NextPage<SavedReviewsPageProps> = () => {
   const [menus, setMenus] = useState<MenuResultT[]>([]);
@@ -37,7 +17,7 @@ const SavedMenusPage: NextPage<SavedReviewsPageProps> = () => {
 
   useEffect(() => {
     setIsLoading(true);
-    getAllMenus().then((data) => {
+    getAllSavedMenus().then((data) => {
       setMenus(data);
       setIsLoading(false);
     });
@@ -46,7 +26,7 @@ const SavedMenusPage: NextPage<SavedReviewsPageProps> = () => {
   const handleDelete = async (id: string) => {
     const response = await deleteMenuById(id);
     if (response.success) {
-      setMenus((prev) => prev.filter((menu) => menu._id !== id));
+      setMenus(menus.filter((menu) => menu._id !== id));
     }
   };
 

@@ -1,7 +1,6 @@
 import React, { FC, Dispatch, SetStateAction } from 'react';
 import { SubmitHandler, useForm } from 'react-hook-form';
 import { AxiosError } from 'axios';
-import sendNameGenRequest from '../../util/client-api-requests/sendNameGenRequest';
 
 import { APIErrorResponseSchema } from '../../util/APIResponseSchema';
 import { NameResult } from '../../util/ResultType';
@@ -10,6 +9,7 @@ import FormInput from '../ui/FormInput';
 import profanity from '../../config/badwords/profanity';
 import generateNamePrompt from '../../util/examples/generateNamePrompt';
 import { SmallButton, SubmitButton } from '../ui/FormButtons';
+import sendNameGenRequest from '../../util/client-api-requests/generate/sendNameGenRequest';
 
 interface FormComponentProps {
   setResult: Dispatch<SetStateAction<NameResult | undefined>>;

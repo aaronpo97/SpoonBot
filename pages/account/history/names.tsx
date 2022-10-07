@@ -1,36 +1,20 @@
 /* eslint-disable no-underscore-dangle */
 import { withPageAuthRequired } from '@auth0/nextjs-auth0';
-import axios from 'axios';
 import { NextPage } from 'next';
 import { FC, useEffect, useState } from 'react';
-import { z } from 'zod';
 import SavedHistoryLayout from '../../../components/savedHistory/SavedHistoryLayout';
 import SavedResultCard, {
   SavedResultLeft,
   SavedResultRight,
 } from '../../../components/savedHistory/SavedResultCard';
-import {
-  APIGetSavedResultsSchema,
-  NameResultT,
-  NameResultZodSchema,
-} from '../../../util/APIResponseSchema';
+
+import { NameResultT } from '../../../util/APIResponseSchema';
+import deleteNameById from '../../../util/client-api-requests/savedResults/names/deleteNameById';
+import getAllNames from '../../../util/client-api-requests/savedResults/names/getAllNames';
 
 interface SavedReviewsPageProps {}
 
 // get all reviews from the database from  /api/saved-reviews
-
-const getAllNames = async () => {
-  const { data } = await axios.get('/api/saved/names');
-  const parsedData = APIGetSavedResultsSchema.parse(data);
-  const payload = z.array(NameResultZodSchema).parse(parsedData.data);
-  return payload;
-};
-
-const deleteNameById = async (id: string) => {
-  const { data } = await axios.delete(`/api/saved/names/${id}`);
-  const parsedData = APIGetSavedResultsSchema.parse(data);
-  return parsedData;
-};
 
 const SavedName: FC<{
   name: NameResultT;
@@ -75,15 +59,16 @@ const SavedNamesPage: NextPage<SavedReviewsPageProps> = () => {
   useEffect(() => {
     getAllNames().then((data) => {
       setIsLoading(true);
-
       setNames(data);
       setIsLoading(false);
     });
   }, []);
 
   const handleDelete = async (id: string) => {
-    await deleteNameById(id);
-    setNames(names.filter((name) => name._id !== id));
+    const response = await deleteNameById(id);
+    if (response.success) {
+      setNames(names.filter((name) => name._id !== id));
+    }
   };
 
   return (
