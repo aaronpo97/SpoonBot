@@ -1,5 +1,6 @@
 import Link from 'next/link';
 import { FC, ReactNode } from 'react';
+import Spinner from '../ui/Spinner';
 
 export const SavedSidebar: FC<{
   // eslint-disable-next-line react/require-default-props

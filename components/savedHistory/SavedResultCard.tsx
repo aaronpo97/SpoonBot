@@ -17,7 +17,7 @@ const SavedResultCard: FC<{
     { addSuffix: true },
   );
   return (
-    <div className="bg-slate-200 w-full flex flex-col my-7 rounded-xl items-end static">
+    <div className="bg-slate-200 w-full flex flex-col my-7 rounded-xl items-end static animate-in fade-in">
       <div className="px-5 pt-5 flex flex-col lg:flex-row w-full">{children}</div>
       <div className="pr-2 pb-2 flex items-center justify-between w-full">
         <div
