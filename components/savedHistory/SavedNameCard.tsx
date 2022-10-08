@@ -17,6 +17,10 @@ const SavedNameCard: FC<{
         <div className="w-full p-2">
           <h3 className="font-bold uppercase my-1 text-xl">Cuisine</h3>
           <p className="font-semibold text-lg">{name.input.cuisine}</p>
+        </div>{' '}
+        <div className="w-full p-2">
+          <h3 className="font-bold uppercase my-1 text-xl">Location</h3>
+          <p className="font-semibold text-lg">{name.input.location}</p>
         </div>
         <div className="w-full p-2">
           <h3 className="font-bold uppercase my-1 text-xl">Keywords/Phrases</h3>

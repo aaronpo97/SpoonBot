@@ -10,9 +10,9 @@ const SavedIndex: NextPage = () => {
         <title>Saved History</title>
       </Head>
       <SavedHistoryLayout isLoading={false}>
-        <div>
-          <p className="text-lg">
-            Use the sidebar to navigate to your saved reviews, menus, and names.
+        <div className="h-full flex flex-col items-center justify-center">
+          <p className="text-2xl font-bold text-center">
+            Navigate to your saved reviews, menus, or names.
           </p>
         </div>
       </SavedHistoryLayout>

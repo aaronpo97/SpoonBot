@@ -6,6 +6,7 @@ const nameResultSchema = new Schema<NameResultT>({
   input: {
     cuisine: Schema.Types.String,
     keywords: [Schema.Types.String],
+    location: Schema.Types.String,
   },
   result: Schema.Types.String,
   metadata: {

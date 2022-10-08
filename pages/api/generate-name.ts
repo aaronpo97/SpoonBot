@@ -54,7 +54,7 @@ const handler = withApiAuthRequired(
       const success = true;
 
       const nameResult: NameResultT = {
-        input: { cuisine, keywords: keywords.map((keyword) => keyword.trim()) },
+        input: { cuisine, keywords: keywords.map((keyword) => keyword.trim()), location },
         result,
         metadata: { createdAt: new Date(), createdBy: identifier },
       };

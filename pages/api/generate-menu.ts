@@ -3,10 +3,11 @@ import { getSession, withApiAuthRequired } from '@auth0/nextjs-auth0';
 import { MenuGenRequestBodySchema } from '../../util/RequestSchemas';
 import { MenuResultT, SuccessResponse } from '../../util/APIResponseSchema';
 import ServerError from '../../util/error/ServerError';
-import { nameGenRateLimit } from '../../config/redis/rateLimit';
+
 import openAiCreateMenu from '../../openAIRequests/openAICreateMenu';
 import errorHandler from '../../util/error/errorHandler';
 import { createNewSavedMenu } from '../../services/savedResults/MenuService';
+import { menuGenRateLimit } from '../../config/redis/rateLimit';
 
 const handler = withApiAuthRequired(
   async (req: NextApiRequest, res: NextApiResponse<unknown>) => {
@@ -19,7 +20,7 @@ const handler = withApiAuthRequired(
       const session = getSession(req, res);
       const { user } = session!;
       const identifier = user.sub as string;
-      const rateLimiter = await nameGenRateLimit.limit(identifier);
+      const rateLimiter = await menuGenRateLimit.limit(identifier);
 
       res.setHeader('X-RateLimit-Limit', rateLimiter.limit);
       res.setHeader('X-RateLimit-Remaining', rateLimiter.remaining);

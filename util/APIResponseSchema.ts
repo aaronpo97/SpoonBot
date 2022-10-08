@@ -63,6 +63,7 @@ export const NameResultZodSchema = z.object({
   input: z.object({
     cuisine: z.string(),
     keywords: z.array(z.string()),
+    location: z.string(),
   }),
   result: z.string(),
   metadata: z.object({
