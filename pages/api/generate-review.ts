@@ -49,7 +49,7 @@ const handler = withApiAuthRequired(
 
       const reviewResult: ReviewResultT = {
         input: { keywords, name },
-        result,
+        result: result.trim(),
         metadata: { createdAt: new Date(), createdBy: identifier },
       };
 

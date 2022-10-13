@@ -45,7 +45,7 @@ const handler = withApiAuthRequired(
 
       const menuResult: MenuResultT = {
         input: { cuisine, name },
-        result,
+        result: result.trim(),
         metadata: { createdAt: new Date(), createdBy: identifier },
       };
 
