@@ -4,32 +4,22 @@ import { MenuResultT } from '../../util/APIResponseSchema';
 
 export const getAllUserMenus = async (userId: string): Promise<MenuResultT[]> => {
   await connectMongo();
-  const menus = await MenuResultModel.find<MenuResultT>(
-    { 'metadata.createdBy': userId },
-    null,
-    {
-      sort: { 'metadata.createdAt': -1 },
-    },
-  );
-
-  return menus;
+  return MenuResultModel.find<MenuResultT>({ 'metadata.createdBy': userId }, null, {
+    sort: { 'metadata.createdAt': -1 },
+  });
 };
 
-export const deleteMenuById = async (id: string): Promise<void> => {
+export const deleteMenuById = async (id: string): Promise<MenuResultT | null> => {
   await connectMongo();
-  await MenuResultModel.findByIdAndDelete(id);
+  return MenuResultModel.findByIdAndDelete(id);
 };
 
 export const getMenuById = async (id: string): Promise<MenuResultT | null> => {
   await connectMongo();
-  const menu = await MenuResultModel.findById<MenuResultT>(id);
-
-  return menu;
+  return MenuResultModel.findById<MenuResultT>(id);
 };
 
 export const createNewSavedMenu = async (menu: MenuResultT): Promise<MenuResultT> => {
   await connectMongo();
-  const newSavedMenu = await MenuResultModel.create<MenuResultT>(menu);
-
-  return newSavedMenu;
+  return MenuResultModel.create<MenuResultT>(menu);
 };
