@@ -2,7 +2,7 @@ import Link from 'next/link';
 
 const Acknowledgment = () => {
   return (
-    <aside className="mt-12 mb-12 container mx-auto flex flex-col items-center justify-center text-base-content text-center font-semibold px-8">
+    <aside className="container mx-auto mt-12 mb-12 flex flex-col items-center justify-center px-8 text-center font-semibold text-base-content">
       <p className="text-lg">
         Powered by{' '}
         <Link href="https://openai.com/api/">

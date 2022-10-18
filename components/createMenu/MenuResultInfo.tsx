@@ -5,8 +5,8 @@ const MenuResultInfo: FC<{ result: MenuResult }> = ({ result }) => {
   const menu = result.menu.split('\n').filter((item) => item.trim() !== '');
 
   return (
-    <div className="bg-primary shadow-lg rounded-2xl w-10/12 py-12 px-8 animate-in fade-in select-none">
-      <p className="text-xl font-bold mb-3 italic text-primary-content">
+    <div className="w-10/12 select-none rounded-2xl bg-primary py-12 px-8 shadow-lg animate-in fade-in">
+      <p className="mb-3 text-xl font-bold italic text-primary-content">
         The SpoonBot AI created a new menu for you!
       </p>
       <div className="text-xl text-primary-content">
@@ -20,7 +20,7 @@ const MenuResultInfo: FC<{ result: MenuResult }> = ({ result }) => {
             lineSaysAppetizer || lineSaysEntree || lineSaysDessert || lineSaysDrink;
 
           return isHeading ? (
-            <h5 className="font-bold text-xl my-2 uppercase">{line}</h5>
+            <h5 className="my-2 text-xl font-bold uppercase">{line}</h5>
           ) : (
             <p className="">{line}</p>
           );

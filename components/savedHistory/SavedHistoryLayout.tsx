@@ -6,12 +6,12 @@ export const SavedSidebar: FC<{
   navigationItems: { name: string; href: string; current: boolean }[];
 }> = ({ navigationItems }) => {
   return (
-    <div className="flex flex-col items-center h-full bg-neutral text-neutral-content w-full">
+    <div className="flex h-full w-full flex-col items-center bg-neutral text-neutral-content">
       <ul className="menu w-full focus:bg-black">
         {navigationItems.map((item) => (
           <li key={item.name}>
             <Link href={item.href}>
-              <span className={`${item.current ? 'active' : ''} uppercase font-bold`}>
+              <span className={`${item.current ? 'active' : ''} font-bold uppercase`}>
                 {item.name}
               </span>
             </Link>
@@ -29,7 +29,7 @@ const SavedHistoryMobileNav: FC<{
     <div className="tabs justify-center md:hidden">
       {navigationItems.map((item) => (
         <span
-          className={`uppercase font-bold cursor-pointer tab tab-lg ${
+          className={`tab tab-lg cursor-pointer font-bold uppercase ${
             item.current ? 'tab-active' : ''
           } tab-lifted`}
           key={item.href}
@@ -67,15 +67,15 @@ const SavedHistoryLayout: FC<{
   ];
 
   return (
-    <div className="bg-base-100 h-full flex items-center">
-      <div className="h-full md:w-3/12 md:block hidden">
+    <div className="flex h-full items-center bg-base-100">
+      <div className="hidden h-full md:block md:w-3/12">
         <SavedSidebar navigationItems={navigationItems} />
       </div>
-      <div className="h-full overflow-x-auto md:w-9/12 w-full p-7">
+      <div className="h-full w-full overflow-x-auto p-7 md:w-9/12">
         <SavedHistoryMobileNav navigationItems={navigationItems} />
 
         {isLoading ? (
-          <div className="flex items-center justify-center h-full w-full">
+          <div className="flex h-full w-full items-center justify-center">
             <Spinner />
           </div>
         ) : (

@@ -16,17 +16,17 @@ const SavedMenuCard: FC<{
     >
       <SavedResultLeft>
         <div className="w-full p-2">
-          <h3 className="font-bold uppercase my-1 text-xl">Restaurant Name</h3>
-          <p className="font-semibold text-lg">{menu.input.name}</p>
+          <h3 className="my-1 text-xl font-bold uppercase">Restaurant Name</h3>
+          <p className="text-lg font-semibold">{menu.input.name}</p>
         </div>
         <div className="w-full p-2">
-          <h3 className="font-bold uppercase my-1 text-xl">Cuisine</h3>
-          <p className="font-semibold text-lg">{menu.input.cuisine}</p>
+          <h3 className="my-1 text-xl font-bold uppercase">Cuisine</h3>
+          <p className="text-lg font-semibold">{menu.input.cuisine}</p>
         </div>
       </SavedResultLeft>
       <SavedResultRight>
         <div className="w-full p-2">
-          <h3 className="font-bold uppercase my-1 text-xl">Spoonbot&apos;s Menu</h3>
+          <h3 className="my-1 text-xl font-bold uppercase">Spoonbot&apos;s Menu</h3>
           {menuData.map((line) => {
             const lineSaysAppetizer = line.toLowerCase().includes('appetizer');
             const lineSaysEntree = line.toLowerCase().includes('entree');
@@ -37,9 +37,9 @@ const SavedMenuCard: FC<{
               lineSaysAppetizer || lineSaysEntree || lineSaysDessert || lineSaysDrink;
 
             return isHeading ? (
-              <h5 className="font-bold text-lg my-2 uppercase">{line}</h5>
+              <h5 className="my-2 text-lg font-bold uppercase">{line}</h5>
             ) : (
-              <p className="italic text-lg">{line}</p>
+              <p className="text-lg italic">{line}</p>
             );
           })}
         </div>

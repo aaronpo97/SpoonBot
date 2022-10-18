@@ -5,11 +5,11 @@ const FormInfo: FC<{
   error: string | undefined;
   labelFor: string;
 }> = ({ label, labelFor, error }) => (
-  <div className="flex content-between justify-between items-center">
-    <label htmlFor={labelFor} className="items-start text-md font-bold uppercase my-1">
+  <div className="flex content-between items-center justify-between">
+    <label htmlFor={labelFor} className="text-md my-1 items-start font-bold uppercase">
       {label}
     </label>
-    <span className="items-end my-1 italic lg:text-sm text-xs">{error}</span>
+    <span className="my-1 items-end text-xs italic lg:text-sm">{error}</span>
   </div>
 );
 

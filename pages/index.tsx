@@ -18,25 +18,25 @@ const Home: NextPage<Props> = () => {
           content="Welcome to SpoonBot! The AI powered restaurant name, menu, and review generator."
         />
       </Head>
-      <div className="h-full flex flex-col items-center justify-center bg-primary text-primary-content">
-        <h1 className="md:text-8xl text-5xl font-bold mt-[-12]">SpoonBot</h1>
-        <h2 className="md:text-3xl text-xl mt-3 font-semibold">The Restaurant Bot</h2>
+      <div className="flex h-full flex-col items-center justify-center bg-primary text-primary-content">
+        <h1 className="mt-[-12] text-5xl font-bold md:text-8xl">SpoonBot</h1>
+        <h2 className="mt-3 text-xl font-semibold md:text-3xl">The Restaurant Bot</h2>
         <div className="mt-10 flex flex-col items-center justify-center">
           {user ? (
             <>
               <h3 className="text-4xl font-semibold">Welcome!</h3>
-              <h4 className="text-xl font-semibold mt-1">You are now logged in.</h4>
+              <h4 className="mt-1 text-xl font-semibold">You are now logged in.</h4>
             </>
           ) : (
             <>
-              <h3 className="md:text-3xl text-2xl font-semibold">Welcome!</h3>
-              <h4 className="text-sm md:text-xl font-semibold mt-1 italic">
+              <h3 className="text-2xl font-semibold md:text-3xl">Welcome!</h3>
+              <h4 className="mt-1 text-sm font-semibold italic md:text-xl">
                 Please{' '}
                 <Link
                   href="/api/auth/login"
                   aria-details="This is a link to login or create a new account."
                 >
-                  <span className="hover:underline cursor-pointer">
+                  <span className="cursor-pointer hover:underline">
                     login or create an account
                   </span>
                 </Link>{' '}

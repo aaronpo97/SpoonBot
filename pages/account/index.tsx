@@ -10,8 +10,8 @@ const SavedIndex: NextPage = () => {
         <title>Saved History</title>
       </Head>
       <SavedHistoryLayout isLoading={false}>
-        <div className="h-full flex flex-col items-center justify-center">
-          <p className="text-2xl font-bold text-center">
+        <div className="flex h-full flex-col items-center justify-center">
+          <p className="text-center text-2xl font-bold">
             Navigate to your saved reviews, menus, or names.
           </p>
         </div>

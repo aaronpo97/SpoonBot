@@ -12,7 +12,7 @@ export const SmallButton: FC<SmallButtonProps> = ({ children, disabled, onClick 
   return (
     <button
       type="button"
-      className="btn btn-primary btn-sm lg:text-xl text-md font-bold w-full"
+      className="text-md btn btn-primary btn-sm w-full font-bold lg:text-xl"
       disabled={disabled}
       onClick={onClick}
     >
@@ -25,7 +25,7 @@ export const SubmitButton: FC<FormButtonProps> = ({ children, disabled }) => {
   return (
     <button
       type="submit"
-      className="btn btn-primary text-xl font-bold  w-full"
+      className="btn btn-primary w-full text-xl  font-bold"
       disabled={disabled}
     >
       {children}

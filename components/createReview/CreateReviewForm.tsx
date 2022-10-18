@@ -143,13 +143,13 @@ const CreateReviewForm: FC<FormComponentProps> = ({
           />
         </div>
 
-        <div className="flex flex-row justify-between mt-5 ">
-          <div className="w-1/2 mr-1">
+        <div className="mt-5 flex flex-row justify-between ">
+          <div className="mr-1 w-1/2">
             <SmallButton disabled={isLoading} onClick={useExample}>
               Use Example
             </SmallButton>
           </div>
-          <div className="w-1/2 ml-1">
+          <div className="ml-1 w-1/2">
             <SmallButton
               disabled={isLoading}
               onClick={() => {

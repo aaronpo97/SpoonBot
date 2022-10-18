@@ -45,20 +45,20 @@ const Navbar = () => {
   return (
     <nav className="navbar bg-primary">
       <div className="flex-1">
-        <Link className="btn btn-ghost normal-case text-3xl" href="/">
-          <span className="text-xl font-bold cursor-pointer text-primary-content">
+        <Link className="btn btn-ghost text-3xl normal-case" href="/">
+          <span className="cursor-pointer text-xl font-bold text-primary-content">
             SpoonBot
           </span>
         </Link>
       </div>
-      <div className="flex-none lg:block hidden">
+      <div className="hidden flex-none lg:block">
         <ul className="menu menu-horizontal p-0">
           {pages.map((page) => {
             return (
               <li key={page.slug}>
                 <Link tabIndex={0} href={page.slug}>
                   <span
-                    className={`text-lg font-bold lg:hover:bg-primary-focus uppercase ${
+                    className={`text-lg font-bold uppercase lg:hover:bg-primary-focus ${
                       currentURL.includes(page.slug) ? 'bg-primary-focus' : 'bg-primary'
                     } text-primary-content`}
                   >
@@ -77,7 +77,7 @@ const Navbar = () => {
           </label>
           <ul
             tabIndex={0}
-            className="menu menu-compact dropdown-content mt-3 p-2 shadow bg-base-100 rounded-box w-48"
+            className="dropdown-content menu rounded-box menu-compact mt-3 w-48 bg-base-100 p-2 shadow"
           >
             {pages.map((page) => (
               <li key={page.slug}>

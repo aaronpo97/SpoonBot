@@ -32,7 +32,7 @@ const CreateMenu: NextPage = () => {
       </Head>
       <CreatePageContainer>
         <CreatePageLeft>
-          <h1 className="mt-12 mb-6 font-bold text-4xl">Create a Menu</h1>
+          <h1 className="mt-12 mb-6 text-4xl font-bold">Create a Menu</h1>
           <div className="w-10/12">
             <CreateMenuForm
               isLoading={isLoading}
@@ -48,7 +48,7 @@ const CreateMenu: NextPage = () => {
           {error ? <ErrorInfo message={error} /> : null}
           {result ? <MenuResultInfo result={result} /> : null}
           {!isLoading && !error && !result ? (
-            <p className="lg:text-3xl md:text-xl text-base-content text-center font-bold mx-7">
+            <p className="mx-7 text-center font-bold text-base-content md:text-xl lg:text-3xl">
               Create a menu using the form!
             </p>
           ) : null}

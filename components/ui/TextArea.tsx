@@ -24,7 +24,7 @@ const TextArea: FC<TextAreaProps> = ({
       {...formRegister}
       placeholder={placeholder}
       rows={6}
-      className={`w-full textarea rounded-xl  text-[16px] resize-none ${
+      className={`textarea w-full resize-none  rounded-xl text-[16px] ${
         isError ? 'input-error' : ''
       }`}
     />

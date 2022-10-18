@@ -17,12 +17,12 @@ const SavedReview: FC<{
     >
       <SavedResultLeft>
         <div className="w-full p-2">
-          <h3 className="font-bold uppercase my-1 text-xl">Restaurant Name</h3>
-          <p className="font-semibold text-lg">{review.input.name}</p>
+          <h3 className="my-1 text-xl font-bold uppercase">Restaurant Name</h3>
+          <p className="text-lg font-semibold">{review.input.name}</p>
         </div>
         <div className="w-full p-2">
-          <h3 className="font-bold uppercase my-1 text-xl">Keywords/Phrases</h3>
-          <ul className="list-disc list-inside">
+          <h3 className="my-1 text-xl font-bold uppercase">Keywords/Phrases</h3>
+          <ul className="list-inside list-disc">
             {review.input.keywords.map((keyword) => (
               <li className="text-lg">{keyword}</li>
             ))}
@@ -31,8 +31,8 @@ const SavedReview: FC<{
       </SavedResultLeft>
       <SavedResultRight>
         <div className="w-full p-2">
-          <h3 className="font-bold uppercase my-1 text-xl">Spoonbot&apos;s Review</h3>
-          <p className="italic text-lg">{review.result}</p>
+          <h3 className="my-1 text-xl font-bold uppercase">Spoonbot&apos;s Review</h3>
+          <p className="text-lg italic">{review.result}</p>
         </div>
       </SavedResultRight>
     </SavedResultCard>

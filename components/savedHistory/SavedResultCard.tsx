@@ -14,12 +14,14 @@ const SavedResultCard: FC<{
   const timeDiff = formatDistanceStrict(
     new Date(resource.metadata.createdAt),
     new Date(),
-    { addSuffix: true },
+    {
+      addSuffix: true,
+    },
   );
   return (
-    <div className="bg-base-200 w-full flex flex-col my-7 rounded-xl items-end static animate-in fade-in select-none">
-      <div className="px-5 pt-5 flex flex-col lg:flex-row w-full">{children}</div>
-      <div className="pr-2 pb-2 flex items-center justify-between w-full">
+    <div className="static my-7 flex w-full select-none flex-col items-end rounded-xl bg-base-200 animate-in fade-in">
+      <div className="flex w-full flex-col px-5 pt-5 lg:flex-row">{children}</div>
+      <div className="flex w-full items-center justify-between pr-2 pb-2">
         <div
           className="tooltip tooltip-right tooltip-primary"
           data-tip={format(
@@ -27,7 +29,7 @@ const SavedResultCard: FC<{
             'MMMM do yyyy – h:mm a',
           )}
         >
-          <p className="pl-7 pr-2 text-sm italic font-bold text-left">
+          <p className="pl-7 pr-2 text-left text-sm font-bold italic">
             created {timeDiff}
           </p>
         </div>
@@ -36,7 +38,7 @@ const SavedResultCard: FC<{
           data-tip={deleteTooltipLabel}
         >
           <button
-            className="btn btn-circle btn-ghost"
+            className="btn btn-ghost btn-circle"
             type="button"
             onClick={() => {
               handleDelete(resource._id as string);

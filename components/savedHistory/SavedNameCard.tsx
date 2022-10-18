@@ -15,16 +15,16 @@ const SavedNameCard: FC<{
     >
       <SavedResultLeft>
         <div className="w-full p-2">
-          <h3 className="font-bold uppercase my-1 text-xl">Cuisine</h3>
-          <p className="font-semibold text-lg">{name.input.cuisine}</p>
+          <h3 className="my-1 text-xl font-bold uppercase">Cuisine</h3>
+          <p className="text-lg font-semibold">{name.input.cuisine}</p>
         </div>{' '}
         <div className="w-full p-2">
-          <h3 className="font-bold uppercase my-1 text-xl">Location</h3>
-          <p className="font-semibold text-lg">{name.input.location}</p>
+          <h3 className="my-1 text-xl font-bold uppercase">Location</h3>
+          <p className="text-lg font-semibold">{name.input.location}</p>
         </div>
         <div className="w-full p-2">
-          <h3 className="font-bold uppercase my-1 text-xl">Keywords/Phrases</h3>
-          <ul className="list-disc list-inside">
+          <h3 className="my-1 text-xl font-bold uppercase">Keywords/Phrases</h3>
+          <ul className="list-inside list-disc">
             {name.input.keywords.map((keyword) => (
               <li className="text-lg">{keyword}</li>
             ))}
@@ -33,8 +33,8 @@ const SavedNameCard: FC<{
       </SavedResultLeft>
       <SavedResultRight>
         <div className="w-full p-2">
-          <h3 className="font-bold uppercase my-1 text-xl">Spoonbot&apos;s Name</h3>
-          <p className="font-semibold text-6xl italic">{name.result}</p>
+          <h3 className="my-1 text-xl font-bold uppercase">Spoonbot&apos;s Name</h3>
+          <p className="text-6xl font-semibold italic">{name.result}</p>
         </div>
       </SavedResultRight>
     </SavedResultCard>

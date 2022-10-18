@@ -3,11 +3,11 @@ import Navbar from './Navbar';
 
 const Layout: FC<{ children: ReactNode }> = ({ children }) => {
   return (
-    <div className="h-screen flex flex-col">
+    <div className="flex h-screen flex-col">
       <header className="top-0">
         <Navbar />
       </header>
-      <div className="flex-1 h-full top-0 overflow-x-auto">{children}</div>
+      <div className="top-0 h-full flex-1 overflow-x-auto">{children}</div>
     </div>
   );
 };

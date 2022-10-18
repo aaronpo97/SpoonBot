@@ -12,7 +12,7 @@ const FormInput: FC<{
       id={id}
       type="text"
       {...formRegister}
-      className={`input rounded-xl  text-[16px] w-full ${isError ? 'input-error' : ''}`}
+      className={`input w-full  rounded-xl text-[16px] ${isError ? 'input-error' : ''}`}
       autoComplete="off"
       placeholder={placeholder}
     />
