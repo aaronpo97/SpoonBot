@@ -24,7 +24,7 @@ const openAICreateReview = async (info: ReviewGenRequestBody, id: string) => {
       keywords,
     });
     const result = await openai.createCompletion({
-      model: 'text-curie-001',
+      model: 'text-davinci-003',
       prompt,
       max_tokens: 250,
       user: id,

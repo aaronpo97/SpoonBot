@@ -23,7 +23,7 @@ const openAiCreateMenu = async (body: MenuGenRequestBody, identifier: string) =>
     const prompt = generatePrompt({ cuisine, name });
 
     const result = await openai.createCompletion({
-      model: 'text-curie-001',
+      model: 'text-davinci-003',
       prompt,
       max_tokens: 150,
       user: identifier,

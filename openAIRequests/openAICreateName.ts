@@ -29,7 +29,7 @@ const openAICreateName = async (info: NameGenRequestBody, id: string) => {
     });
 
     const result = await openai.createCompletion({
-      model: 'text-curie-001',
+      model: 'text-davinci-003',
       prompt,
       max_tokens: 100,
       user: id,
