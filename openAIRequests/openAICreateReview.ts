@@ -1,4 +1,3 @@
-import fs from 'fs/promises';
 import openai from '../config/openai';
 import ServerError from '../util/error/ServerError';
 import { ReviewGenRequestBody } from '../util/RequestSchemas';
@@ -6,8 +5,8 @@ import openAICreateModeration from './openAICreateModeration';
 
 const generatePrompt = ({ keywords, name }: ReviewGenRequestBody) => {
   const prompt = `You are a restaurant review bot. Please write a long restaurant review based on this information.
-  
-  Limit the review to 250 tokens.
+
+  Limit your review to 100 tokens.
 
   name: ${name}
   keywords: ${keywords}
@@ -15,7 +14,7 @@ const generatePrompt = ({ keywords, name }: ReviewGenRequestBody) => {
   return prompt;
 };
 
-const openAICreateReview = async (info: ReviewGenRequestBody, id: string) => {
+const openAICreateReview = async (info: ReviewGenRequestBody) => {
   try {
     const { name, keywords } = info;
 
@@ -23,14 +22,21 @@ const openAICreateReview = async (info: ReviewGenRequestBody, id: string) => {
       name,
       keywords,
     });
-    const result = await openai.createCompletion({
-      model: 'text-davinci-003',
-      prompt,
-      max_tokens: 250,
-      user: id,
+    const result = await openai.chat.completions.create({
+      model: 'gpt-3.5-turbo',
+      messages: [
+        {
+          role: 'system',
+          content: prompt,
+        },
+      ],
+      max_tokens: 200,
     });
 
-    const data = result.data.choices![0].text!.replace(/[\r\n]/gm, '');
+    const data = result.choices![0].message.content;
+    if (!data) {
+      throw new ServerError('The server failed to generate a response.', 500);
+    }
     const moderation = await openAICreateModeration(data);
 
     if (moderation.results[0].flagged) {

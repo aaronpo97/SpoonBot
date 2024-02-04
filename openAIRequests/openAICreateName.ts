@@ -19,7 +19,7 @@ This restaurant is called:`;
   return prompt;
 };
 
-const openAICreateName = async (info: NameGenRequestBody, id: string) => {
+const openAICreateName = async (info: NameGenRequestBody) => {
   try {
     const { cuisine, keywords, location } = info;
     const prompt = generatePrompt({
@@ -28,13 +28,23 @@ const openAICreateName = async (info: NameGenRequestBody, id: string) => {
       location,
     });
 
-    const result = await openai.createCompletion({
-      model: 'text-davinci-003',
-      prompt,
+    const result = await openai.chat.completions.create({
+      model: 'gpt-3.5-turbo',
+      messages: [
+        {
+          role: 'system',
+          content: prompt,
+        },
+      ],
       max_tokens: 100,
-      user: id,
+      stop: '\n',
     });
-    const data = result.data.choices![0].text!.replace(/[\r\n]/gm, '');
+    const data = result.choices[0].message.content;
+
+    if (!data) {
+      throw new ServerError('The server failed to generate a response.', 500);
+    }
+
     const moderation = await openAICreateModeration(data);
 
     if (moderation.results[0].flagged) {

@@ -40,14 +40,11 @@ const handler = withApiAuthRequired(
 
       const { cuisine, keywords, location } = parseBody.data;
 
-      const result = await openAICreateName(
-        {
-          cuisine,
-          keywords: keywords.map((keyword) => keyword.trim()),
-          location,
-        },
-        identifier,
-      );
+      const result = await openAICreateName({
+        cuisine,
+        keywords: keywords.map((keyword) => keyword.trim()),
+        location,
+      });
 
       const status = 201;
       const message = 'The AI created a new restaurant name.';

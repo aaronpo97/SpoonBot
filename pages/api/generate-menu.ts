@@ -41,7 +41,7 @@ const handler = withApiAuthRequired(
 
       const { cuisine, name } = parseBody.data;
 
-      const result = await openAiCreateMenu({ cuisine, name }, identifier);
+      const result = await openAiCreateMenu({ cuisine, name });
 
       const menuResult: MenuResultT = {
         input: { cuisine, name },

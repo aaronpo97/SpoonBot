@@ -112,6 +112,7 @@ const CreateMenuForm: FC<FormComponentProps> = ({
         <div className="my-1">
           <FormInfo label="name" labelFor="name-input" error={errors.name?.message} />
           <FormInput
+            isSubmitting={isLoading}
             isError={!!errors.name?.message}
             formRegister={nameInputRegister}
             id="cuisine-input"
@@ -126,6 +127,7 @@ const CreateMenuForm: FC<FormComponentProps> = ({
             error={errors.cuisine?.message}
           />
           <FormInput
+            isSubmitting={isLoading}
             isError={!!errors.cuisine?.message}
             formRegister={cuisineInputRegister}
             id="cuisine-input"

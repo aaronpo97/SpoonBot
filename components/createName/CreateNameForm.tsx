@@ -134,6 +134,7 @@ const CreateNameForm: FC<FormComponentProps> = ({
             error={errors.cuisine?.message}
           />
           <FormInput
+            isSubmitting={isLoading}
             isError={!!errors.cuisine?.message}
             formRegister={cuisineInputRegister}
             id="cuisine-input"
@@ -147,6 +148,7 @@ const CreateNameForm: FC<FormComponentProps> = ({
             error={errors.keywords?.message}
           />
           <FormInput
+            isSubmitting={isLoading}
             isError={!!errors.keywords?.message}
             formRegister={keywordsInputRegister}
             id="keyword-input"
@@ -160,6 +162,7 @@ const CreateNameForm: FC<FormComponentProps> = ({
             error={errors.location?.message}
           />
           <FormInput
+            isSubmitting={isLoading}
             isError={!!errors.location?.message}
             formRegister={locationInputRegister}
             id="location-input"

@@ -42,7 +42,7 @@ const handler = withApiAuthRequired(
       const { keywords: untrimmedKeywords, name } = parseBody.data;
 
       const keywords = untrimmedKeywords.map((keyword) => keyword.trim());
-      const result = await openAICreateReview({ keywords, name }, identifier);
+      const result = await openAICreateReview({ keywords, name });
       const status = 201;
       const message = 'The AI created a new restaurant review.';
       const success = true;

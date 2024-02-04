@@ -9,7 +9,7 @@ export const getAllUserMenus = async (userId: string): Promise<MenuResultT[]> =>
   });
 };
 
-export const deleteMenuById = async (id: string): Promise<MenuResultT | null> => {
+export const deleteMenuById = async (id: string) => {
   await connectMongo();
   return MenuResultModel.findByIdAndDelete(id);
 };

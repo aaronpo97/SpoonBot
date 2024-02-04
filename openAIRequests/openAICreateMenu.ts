@@ -8,7 +8,6 @@ const generatePrompt = ({ cuisine, name }: MenuGenRequestBody) => {
 
   You are a chef at a restaurant called ${name}. 
   You are tasked with creating a menu for ${cuisine} cuisine. 
-  Only use 150 tokens to create a menu for ${name}.
 
   Create a three course meal with appetizers, entrees, and desserts.
 
@@ -17,19 +16,26 @@ const generatePrompt = ({ cuisine, name }: MenuGenRequestBody) => {
   return prompt;
 };
 
-const openAiCreateMenu = async (body: MenuGenRequestBody, identifier: string) => {
+const openAiCreateMenu = async (body: MenuGenRequestBody) => {
   try {
     const { cuisine, name } = body;
     const prompt = generatePrompt({ cuisine, name });
 
-    const result = await openai.createCompletion({
-      model: 'text-davinci-003',
-      prompt,
-      max_tokens: 150,
-      user: identifier,
+    const result = await openai.chat.completions.create({
+      model: 'gpt-3.5-turbo',
+      messages: [
+        {
+          role: 'system',
+          content: prompt,
+        },
+      ],
+      max_tokens: 500,
     });
+    const data = result.choices![0].message.content;
 
-    const data = result.data.choices![0].text!;
+    if (!data) {
+      throw new ServerError('The server failed to generate a response.', 500);
+    }
 
     const moderation = await openAICreateModeration(data);
 

@@ -4,6 +4,7 @@ import ServerError from './ServerError';
 
 const errorHandler = (error: unknown, res: NextApiResponse<unknown>) => {
   const isServerError = error instanceof ServerError;
+
   const message = isServerError ? error.message : 'Something went wrong.';
   const status = isServerError ? error.status : 500;
 

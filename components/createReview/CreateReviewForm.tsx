@@ -123,6 +123,7 @@ const CreateReviewForm: FC<FormComponentProps> = ({
         <div className="my-1">
           <FormInfo label="name" labelFor="name-input" error={errors.name?.message} />
           <FormInput
+            isSubmitting={isLoading}
             isError={!!errors.name?.message}
             formRegister={nameInputRegister}
             id="cuisine-input"
@@ -136,6 +137,7 @@ const CreateReviewForm: FC<FormComponentProps> = ({
             error={errors.keywords?.message}
           />
           <FormInput
+            isSubmitting={isLoading}
             isError={!!errors.keywords?.message}
             formRegister={keywordsInputRegister}
             id="keyword-input"

@@ -6,11 +6,13 @@ const FormInput: FC<{
   id: string;
   isError: boolean;
   placeholder: string;
-}> = ({ formRegister, id, placeholder, isError }) => {
+  isSubmitting: boolean;
+}> = ({ formRegister, id, placeholder, isError, isSubmitting }) => {
   return (
     <input
       id={id}
       type="text"
+      disabled={isSubmitting}
       {...formRegister}
       className={`input w-full  rounded-xl text-[16px] ${isError ? 'input-error' : ''}`}
       autoComplete="off"

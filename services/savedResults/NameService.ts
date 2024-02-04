@@ -14,7 +14,7 @@ export const getNameById = async (id: string): Promise<NameResultT | null> => {
   return NameResultModel.findById<NameResultT>(id);
 };
 
-export const deleteNameById = async (id: string): Promise<NameResultT | null> => {
+export const deleteNameById = async (id: string) => {
   await connectMongo();
   return NameResultModel.findByIdAndDelete<NameResultT>(id);
 };

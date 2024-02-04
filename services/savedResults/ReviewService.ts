@@ -9,7 +9,7 @@ export const getAllUserReviews = async (userId: string): Promise<ReviewResultT[]
   });
 };
 
-export const deleteReviewById = async (id: string): Promise<ReviewResultT | null> => {
+export const deleteReviewById = async (id: string) => {
   await connectMongo();
   return ReviewResultModel.findByIdAndDelete(id);
 };
